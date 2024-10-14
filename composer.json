@@ -1,5 +1,5 @@
 {
-    "name": "kkamara/php-reactjs-boilerplate",
+    "name": "kkamara/book-store-management-system",
     "authors": [
         {
             "name": "Kelvin Kamara",
@@ -7,16 +7,26 @@
             "homepage": "https://kelvinkamara.com"
         }
     ],
-    "version": "2.2.0",
+    "version": "1.0.0",
     "type": "project",
-    "description": "(2021) A Laravel 11.x boilerplate with ReactJS Redux SPA.",
+    "description": "(14-Oct-2024) Made with Laravel 11, ReactJS 18 and Filament. This project has admin to insert books or a list of books, payments with Stripe, categories, reviews, and messages. With tests.",
     "keywords": [
         "web",
         "web-app",
         "api",
         "reactjs",
         "tests",
-        "testing"
+        "testing",
+        "books",
+        "management",
+        "system",
+        "admin",
+        "reviews",
+        "messages",
+        "payments",
+        "stripe",
+        "categories",
+        "filament"
     ],
     "license": "BSD-3-Clause",
     "require": {

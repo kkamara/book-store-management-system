@@ -2,9 +2,9 @@
 
 <img src="https://github.com/kkamara/useful/blob/main/php-reactjs-boilerplate2.png?raw=true" alt="php-reactjs-boilerplate2.png" width=""/>
 
-# PHP ReactJS Boilerplate [![API](https://github.com/kkamara/php-reactjs-boilerplate/actions/workflows/build.yml/badge.svg)](https://github.com/kkamara/php-reactjs-boilerplate/actions/workflows/build.yml)
+# Book Store Management System [![API](https://github.com/kkamara/book-store-management-system/actions/workflows/build.yml/badge.svg)](https://github.com/kkamara/book-store-management-system/actions/workflows/build.yml)
 
-(2021) A Laravel 11.x boilerplate with ReactJS Redux SPA.
+(14-Oct-2024) Made with Laravel 11, ReactJS 18 and Filament. This project has admin to insert books or a list of books, payments with Stripe, categories, reviews, and messages. With tests.
 
 * [Using Postman?](#postman)
 
@@ -27,7 +27,7 @@
 
 [Postman client](https://www.postman.com/).
 
-[Published Postman API Collection](https://documenter.getpostman.com/view/17125932/TzzAKvVe).
+[Published Postman API Collection](https://documenter.getpostman.com/view/17125932/2sAXxTcAoD).
 
 ## Installation
 
@@ -53,8 +53,8 @@ npm run build
 ## Usage
 
 ```bash
-herd link boilerplate
-# Website accessible at http://boilerplate.test
+herd link book
+# Website accessible at http://book.test
 ```
 
 ## API Documentation
