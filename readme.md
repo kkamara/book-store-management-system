@@ -36,7 +36,7 @@
 * [https://laravel.com/docs/11.x/installation](https://laravel.com/docs/11.x/installation)
 * [https://laravel.com/docs/11.x/vite#main-content](https://laravel.com/docs/11.x/vite#main-content)
 
-```bash
+```powershell
 # Create our environment file.
 cp .env.example .env
 # Update database values in .env file.
@@ -45,7 +45,8 @@ composer i
 php artisan key:generate
 # Before running the next command:
 # Update your database details in .env
-php artisan migrate --seed
+# Note that the following path is fixed for Powershell usage.
+php artisan migrate --path=database\migrations\v1 --seed
 npm install
 npm run build
 ```
