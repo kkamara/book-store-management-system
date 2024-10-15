@@ -74,9 +74,9 @@ export default function RegisterComponent() {
             <div className="form-group">
               <label htmlFor="name">Name</label>
               <input 
-                name="name" 
+                name="name"
                 className="form-control"
-                value={firstName}
+                value={name}
                 onChange={onNameChange}
               />
             </div>
