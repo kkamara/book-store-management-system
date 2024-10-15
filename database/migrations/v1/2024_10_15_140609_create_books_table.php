@@ -14,12 +14,37 @@ return new class extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->string("isbn");
             $table->foreignId(User::class);
+            $table->integer("isbn_13")->nullable();
+            $table->integer("isbn_10")->nullable();
             $table->string("name");
             $table->text("description");
             $table->integer("cost")->default(0);
             $table->float("rating_average");
+            $table->enum("binding", ["Hardcover", "Paperback"]);
+            $table->enum(
+                "edition",
+                [
+                    "Bibliographical definition",
+                    "Collectors' definition",
+                    "Publisher definition",
+                    "Revised edition",
+                    "Revised and updated edition",
+                    "Co-edition",
+                    "e-dition",
+                    "Library edition",
+                    "Book club edition",
+                    "Cheap edition",
+                    "Colonial edition",
+                    "Cadet edition",
+                    "Large print edition",
+                    "Critical edition",
+                ]
+            );
+            $table->string("author");
+            $table->string("published");
+            $table->date("publisher");
+            $table->tinyInteger("approved");
             $table->timestamps();
         });
     }
