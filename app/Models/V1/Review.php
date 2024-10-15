@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\V1\Approved;
+use App\Enums\V1\ReviewApproved;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,7 +30,7 @@ class Review extends Model
     protected function casts(): array
     {
         return [
-            'approved' => Approved::class,
+            'approved' => ReviewApproved::class,
         ];
     }
 }
