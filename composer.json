@@ -27,7 +27,8 @@
         "payments",
         "stripe",
         "categories",
-        "filament"
+        "filament",
+        "laravel"
     ],
     "license": "BSD-3-Clause",
     "require": {
