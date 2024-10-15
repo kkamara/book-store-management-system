@@ -1,7 +1,8 @@
 name: Tests Pipeline
 on: [push, pull_request]
 env:
-    PHPUNIT_FLAGS: "--filter=V1 --stop-on-failure"
+  MIGRATE_FLAGS: "--path=database/migrations/v1 --seed --force"
+  PHPUNIT_FLAGS: "--filter=V1 --stop-on-failure"
 jobs:
   laravel:
     name: Tests Pipeline (PHP ${{ matrix.php-versions }})
@@ -56,7 +57,7 @@ jobs:
       - name: Generate key
         run: php artisan key:generate -q -n
       - name: Migrate & seed database
-        run: php artisan migrate --path=database\migrations\v1 --seed --force
+        run: php artisan migrate ${{ env.MIGRATE_FLAGS }}
       - name: Change directory permissions
         run: chmod -R 777 storage bootstrap/cache
       - name: Install JavaScript packages
