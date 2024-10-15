@@ -1,12 +1,14 @@
 <?php
 
-namespace Tests\Unit\Api;
+namespace Tests\Unit\V1\Api;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Response;
 use Tests\TestCase;
-use App\Models\User;
+use App\Models\V1\User;
+use Illuminate\Foundation\Testing\RefreshDatabaseState;
+use Illuminate\Contracts\Console\Kernel;
 
 class UsersTest extends TestCase
 {
@@ -14,12 +16,38 @@ class UsersTest extends TestCase
 
     protected $headers = ['Content-Type' => 'application/json'];
 
+    /**
+     * Refresh a conventional test database.
+     *
+     * @return void
+     */
+    protected function refreshTestDatabase()
+    {
+        if (!RefreshDatabaseState::$migrated) {
+            $this->artisan(
+                'migrate:fresh',
+                array_merge(
+                    $this->migrateFreshUsing(),
+                    [
+                        "--path" => "database/migrations/v1"
+                    ],
+                )
+            );
+
+            $this->app[Kernel::class]->setArtisan(null);
+
+            RefreshDatabaseState::$migrated = true;
+        }
+
+        $this->beginDatabaseTransaction();
+    }
+
     public function testRegisterUser()
     {
         $email = $this->faker->unique()->safeEmail;
         $response = $this->withHeaders($this->headers)
             ->postJson(
-                '/api/user/register', 
+                '/api/user/register',
                 [
                     'name' => $this->faker->unique()->name,
                     'email' => $email,
@@ -39,7 +67,9 @@ class UsersTest extends TestCase
             ->postJson('/api/user/register');
 
         $response->assertStatus(Response::HTTP_BAD_REQUEST)->assertJsonStructure([
-            'name', 'email', 'password',
+            'name',
+            'email',
+            'password',
         ]);
     }
 
@@ -49,7 +79,7 @@ class UsersTest extends TestCase
         User::factory()->create(['email' => $email,]);
         $response = $this->withHeaders($this->headers)
             ->postJson(
-                '/api/user/register', 
+                '/api/user/register',
                 [
                     'name' => $this->faker->unique()->name,
                     'email' => $email,
@@ -58,7 +88,7 @@ class UsersTest extends TestCase
                 ],
             );
 
-        $response->assertStatus(Response::HTTP_BAD_REQUEST)->assertJsonStructure([ 'email', ]);
+        $response->assertStatus(Response::HTTP_BAD_REQUEST)->assertJsonStructure(['email',]);
     }
 
     public function testLoginUser()
@@ -67,7 +97,7 @@ class UsersTest extends TestCase
         $user = User::factory()->create(['email' => $email,]);
         $response = $this->withHeaders($this->headers)
             ->postJson(
-                '/api/user/', 
+                '/api/user/',
                 ['email' => $user->email, 'password' => 'secret',],
             );
 
@@ -83,7 +113,7 @@ class UsersTest extends TestCase
         $response = $this->withHeaders($this->headers)
             ->postJson('/api/user/');
 
-        $response->assertStatus(Response::HTTP_BAD_REQUEST)->assertJsonStructure([ 'email', 'password', ]);
+        $response->assertStatus(Response::HTTP_BAD_REQUEST)->assertJsonStructure(['email', 'password',]);
     }
 
     public function testLoginUserInvalidCombination()
@@ -91,11 +121,11 @@ class UsersTest extends TestCase
         $user = User::factory()->create(['email' => $this->faker->unique()->safeEmail,]);
         $response = $this->withHeaders($this->headers)
             ->postJson(
-                '/api/user/', 
+                '/api/user/',
                 ['email' => $user->email, 'password' => 'invalid_password',],
             );
 
-        $response->assertStatus(Response::HTTP_BAD_REQUEST)->assertJsonStructure([ 'error', ]);
+        $response->assertStatus(Response::HTTP_BAD_REQUEST)->assertJsonStructure(['error',]);
     }
 
     public function testAuthorizeUser()
@@ -104,13 +134,13 @@ class UsersTest extends TestCase
         $user = User::factory()->create(['email' => $email,]);
         $loginResponse = $this->withHeaders($this->headers)
             ->postJson(
-                '/api/user/', 
+                '/api/user/',
                 ['email' => $user->email, 'password' => 'secret',],
             );
-        
+
         $authResponse = $this->withHeaders(array_merge(
-            $this->headers, 
-            ['Authorization' => 'Bearer '.$loginResponse->json()['data']['token']],
+            $this->headers,
+            ['Authorization' => 'Bearer ' . $loginResponse->json()['data']['token']],
         ))->getJson('/api/user/authorize');
 
         $authResponse->assertStatus(Response::HTTP_OK)->assertJsonStructure([
@@ -119,9 +149,9 @@ class UsersTest extends TestCase
     }
 
     public function testAuthorizeUserAuthenticationError()
-    {        
+    {
         $response = $this->withHeaders(array_merge(
-            $this->headers, 
+            $this->headers,
             ['Authorization' => 'Bearer 1'],
         ))->getJson('/api/user/authorize');
 

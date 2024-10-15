@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\V1\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Response;
-use App\Models\User;
+use App\Models\V1\User;
 use App\Http\Resources\UserResource;
 
 class UserController extends Controller
@@ -28,6 +28,7 @@ class UserController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors(), Response::HTTP_BAD_REQUEST);
         }
+        
         if (null !== User::where($request->only('email'))->first()) {
             return response()->json(['email' => 'User with that email already exists'], Response::HTTP_BAD_REQUEST);
         }

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\Approved;
+use App\Enums\V1\Approved;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

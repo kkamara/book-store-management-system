@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Enums;
+namespace App\Enums\V1;
 
 enum Approved: int {
     case APPROVED = 1;
