@@ -63,9 +63,9 @@ herd link book
 php artisan route:list
 # output
 ...
-POST       api/user ............................ login › V1\Api\UserController@login
-GET|HEAD   api/user/authorize .................. V1\Api\UserController@authorizeUser
-POST       api/user/register ................... V1\Api\UserController@register
+POST       api/user ............................ login › V1\API\UserController@login
+GET|HEAD   api/user/authorize .................. V1\API\UserController@authorizeUser
+POST       api/user/register ................... V1\API\UserController@register
 ...
 ```
 
