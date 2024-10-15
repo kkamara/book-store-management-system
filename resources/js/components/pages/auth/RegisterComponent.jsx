@@ -38,7 +38,7 @@ export default function RegisterComponent() {
     setPasswordConfirmation("")
   }
 
-  const onFirstNameChange = (e) => {
+  const onNameChange = (e) => {
     setName(e.target.value)
   }
 
@@ -77,7 +77,7 @@ export default function RegisterComponent() {
                 name="name" 
                 className="form-control"
                 value={firstName}
-                onChange={onFirstNameChange}
+                onChange={onNameChange}
               />
             </div>
             <div className="form-group">
