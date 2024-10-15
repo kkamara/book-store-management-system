@@ -5,7 +5,7 @@ axios.defaults.withXSRFToken = true
 
 export default class HttpService
 {
-  _domain = 'http://boilerplate.test'
+  _domain = 'http://book.test'
   _url = `${this._domain}/api/web`
 
   get domain() {
