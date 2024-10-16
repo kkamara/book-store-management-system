@@ -68,7 +68,7 @@ class Book extends Model
     /**
      * Get all of the categories for the book.
      */
-    public function books(): HasManyThrough
+    public function categories(): HasManyThrough
     {
         return $this->hasManyThrough(Category::class, BookCategory::class);
     }
