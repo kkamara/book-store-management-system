@@ -7,7 +7,7 @@ enum BookEdition: string {
     case COLLECTORS = "Collectors' definition";
     case PUBLISHER = "Publisher definition";
     case REVISED = "Revised edition";
-    case REVISED = "Revised and updated edition";
+    case REVISED_UPDATED = "Revised and updated edition";
     case CO_EDITION = "Co-edition";
     case E_DITION = "e-dition";
     case LIBRARY = "Library edition";
