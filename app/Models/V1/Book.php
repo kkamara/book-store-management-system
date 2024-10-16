@@ -6,6 +6,8 @@ use App\Enums\V1\BookApproved;
 use App\Enums\V1\BookEdition;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Book extends Model
 {
@@ -44,5 +46,21 @@ class Book extends Model
             "edition" => BookEdition::class,
             "approved" => BookApproved::class,
         ];
+    }
+
+    /**
+     * Get the user that owns the book.
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the reviews for the book.
+     */
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
     }
 }
