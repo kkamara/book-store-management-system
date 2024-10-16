@@ -14,20 +14,30 @@ return new class extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->foreignId(User::class);
-            $table->integer("isbn_13")->nullable();
-            $table->integer("isbn_10")->nullable();
-            $table->string("name");
+            $table->unsignedBigInteger("user_id");
+            $table->string("isbn_13")
+                ->index()
+                ->nullable();
+            $table->string("isbn_10")
+                ->index()
+                ->nullable();
+            $table->string("name")
+                ->index();
             $table->text("description");
             $table->integer("cost")->default(0);
             $table->float("rating_average")->nullable();
             $table->enum("binding", ["Hardcover", "Paperback"]);
             $table->string("edition");
             $table->string("author");
-            $table->string("published");
-            $table->date("publisher");
+            $table->date("published");
+            $table->string("publisher")
+                ->index();
             $table->tinyInteger("approved");
             $table->timestamps();
+            
+            $table->foreign("user_id")
+                ->references("id")
+                ->on("users");
         });
     }
 
