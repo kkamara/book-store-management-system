@@ -4,7 +4,7 @@ namespace App\Models\V1;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Category extends Model
 {
@@ -20,10 +20,10 @@ class Category extends Model
     ];
 
     /**
-     * Get all of the books for the category.
+     * The books that belong to the category.
      */
-    public function books(): HasManyThrough
+    public function books(): BelongsToMany
     {
-        return $this->hasManyThrough(Book::class, BookCategory::class);
+        return $this->belongsToMany(Book::class, "book_categories");
     }
 }
