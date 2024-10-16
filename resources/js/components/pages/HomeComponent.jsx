@@ -1,16 +1,12 @@
 import React, { useEffect, } from 'react'
-import { useNavigate, } from 'react-router-dom'
 import { useDispatch, useSelector, } from 'react-redux'
 import ReactPaginate from 'react-paginate'
 import moment from 'moment'
 import { getUsers, } from '../../redux/actions/usersActions'
-import { authorize } from '../../redux/actions/authActions'
 
 import "./HomeComponent.scss"
 
 export default function HomeComponent() {
-  const navigate = useNavigate()
-
   const dispatch = useDispatch()
   const state = useSelector(state => ({
     auth: state.auth,
@@ -18,16 +14,8 @@ export default function HomeComponent() {
   }))
 
   useEffect(() => {
-    dispatch(authorize())
-    dispatch(getUsers())
+    // dispatch(getUsers())
   }, [])
-
-  useEffect(() => {
-    if (state.auth.error) {
-      localStorage.removeItem('user-token')
-      window.location.href = '/user/login'
-    }
-  }, [state.auth,])
 
   const handlePageChange = ({ selected, }) => {
     const newPage = selected + 1
@@ -127,9 +115,9 @@ export default function HomeComponent() {
         </button>
         <br />
         <br />
-        {pagination()}
+        {/*{pagination()}
         {renderList()}
-        {pagination()}
+        {pagination()}*/}
       </div>
     </>
   )
