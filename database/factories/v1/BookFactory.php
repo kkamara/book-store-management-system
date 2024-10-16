@@ -23,8 +23,8 @@ class BookFactory extends Factory
         $isbn13 = null;
         $isbn10 = null;
         if (mt_rand(0, 1) === 1) {
-            $isbn13 = fake()->isbn13();
-            $isbn10 = fake()->isbn10();
+            $isbn13 = $this->faker->isbn13();
+            $isbn10 = $this->faker->isbn10();
             $edition = BookEdition::E_DITION->value;
         } else {
             $edition = match(mt_rand(0, 13)) {
@@ -48,15 +48,15 @@ class BookFactory extends Factory
             "isbn_13" => $isbn13,
             "isbn_10" => $isbn10,
             "user_id" => User::inRandomOrder()->first()->id,
-            "name" => fake()->company(),
-            "description" => fake()->paragraphs(mt_rand(3, 6), true),
-            "cost" => fake()->numberBetween(),
+            "name" => $this->faker->company(),
+            "description" => $this->faker->paragraphs(mt_rand(3, 6), true),
+            "cost" => $this->faker->numberBetween(),
             "rating_average" => null,
             "binding" => mt_rand(0, 1) === 1 ?
                 "Paperback" :
                 "Hardcover",
             "edition" => $edition,
-            "author" => fake()->name(),
+            "author" => $this->faker->name(),
             "published" => Carbon::parse($this->faker->dateTimeInInterval())
                 ->format("Y-m-d"),
             "publisher" => $this->faker->company(),

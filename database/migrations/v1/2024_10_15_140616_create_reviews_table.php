@@ -15,8 +15,9 @@ return new class extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("user_id");
+            $table->unsignedBigInteger(column: "book_id");
             $table->enum("rating", [0, 1, 2, 3, 4, 5]);
-            $table->string("text")
+            $table->text("text")
                 ->default(null)
                 ->nullable();
             $table->tinyInteger("approved")->default(0);
@@ -25,6 +26,9 @@ return new class extends Migration
             $table->foreign("user_id")
                 ->references("id")
                 ->on("users");
+            $table->foreign("book_id")
+                ->references("id")
+                ->on("books");
         });
     }
 
