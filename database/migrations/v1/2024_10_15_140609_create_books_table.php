@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string("name");
             $table->text("description");
             $table->integer("cost")->default(0);
-            $table->float("rating_average");
+            $table->float("rating_average")->nullable();
             $table->enum("binding", ["Hardcover", "Paperback"]);
             $table->string("edition");
             $table->string("author");
