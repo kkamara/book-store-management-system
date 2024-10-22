@@ -4,7 +4,7 @@
 
 # Book Store Management System [![API](https://github.com/kkamara/book-store-management-system/actions/workflows/build.yml/badge.svg)](https://github.com/kkamara/book-store-management-system/actions/workflows/build.yml)
 
-(14-Oct-2024) www.1000projects.org challenge. Made with Laravel 11, ReactJS 18 and Filament. This project has admin to insert books or a list of books, payments with Stripe, categories, reviews, and messages. With tests.
+(14-Oct-2024) www.1000projects.org challenge. Made with Laravel 11, ReactJS 18 and Filament. This project has admin to insert books or a list of books, payments with Stripe, categories, and reviews. With tests.
 
 * [Using Postman?](#postman)
 
