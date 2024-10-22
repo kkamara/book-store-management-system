@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string("name")
                 ->index();
             $table->text("description");
+            $table->text("jpg_image_url")->nullable();
             $table->integer("cost")->default(0);
             $table->float("rating_average")->nullable();
             $table->enum("binding", ["Hardcover", "Paperback"]);

@@ -1,6 +1,6 @@
 <img src="https://github.com/kkamara/useful/blob/main/php-reactjs-boilerplate.png?raw=true" alt="php-reactjs-boilerplate.png" width=""/>
 
-<img src="https://github.com/kkamara/useful/blob/main/php-reactjs-boilerplate2.png?raw=true" alt="php-reactjs-boilerplate2.png" width=""/>
+<img src="https://github.com/kkamara/useful/blob/main/book-store-management-system.png?raw=true" alt="book-store-management-system.png" width=""/>
 
 # Book Store Management System [![API](https://github.com/kkamara/book-store-management-system/actions/workflows/build.yml/badge.svg)](https://github.com/kkamara/book-store-management-system/actions/workflows/build.yml)
 

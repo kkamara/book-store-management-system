@@ -50,6 +50,7 @@ class BookFactory extends Factory
             "user_id" => User::inRandomOrder()->first()->id,
             "name" => $this->faker->company(),
             "description" => $this->faker->paragraphs(mt_rand(3, 6), true),
+            "jpg_image_url" => "https://cdn.pixabay.com/photo/2016/11/27/12/34/books-1862768_1280.jpg",
             "cost" => $this->faker->numberBetween(),
             "rating_average" => null,
             "binding" => mt_rand(0, 1) === 1 ?
@@ -57,7 +58,10 @@ class BookFactory extends Factory
                 "Hardcover",
             "edition" => $edition,
             "author" => $this->faker->name(),
-            "published" => Carbon::parse($this->faker->dateTimeInInterval())
+            "published" => Carbon::parse($this->faker->dateTimeInInterval(
+                date: sprintf("-%s years", mt_rand(0, 30)),
+                interval: sprintf("-%s days", mt_rand(0, 30)),
+            ))
                 ->format("Y-m-d"),
             "publisher" => $this->faker->company(),
             "approved" => mt_rand(0, 1) === 1 ? 

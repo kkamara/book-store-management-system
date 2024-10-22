@@ -1,3 +1,17 @@
 .home-item {
     text-align: left;
 }
+
+.home-card {
+    width: 18rem;
+    display: inline-block !important;
+    margin: 10px;
+}
+
+.home-card .card-text {
+    font-size: 12px;
+}
+
+.card-span {
+    display: block;
+}

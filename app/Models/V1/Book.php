@@ -25,6 +25,7 @@ class Book extends Model
         "user_id",
         "name",
         "description",
+        "jpg_image_url",
         "cost", // Stored as integer by float value multiplied by 100.
         "rating_average",
         "binding", // Paperback, Hardcover
@@ -71,5 +72,12 @@ class Book extends Model
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class, "book_categories");
+    }
+
+    public function getFormattedCostAttribute() {
+        return number_format(
+            $this->cost / 100,
+            2
+        );
     }
 }

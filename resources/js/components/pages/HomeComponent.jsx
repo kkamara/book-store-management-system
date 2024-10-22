@@ -2,7 +2,7 @@ import React, { useEffect, } from 'react'
 import { useDispatch, useSelector, } from 'react-redux'
 import ReactPaginate from 'react-paginate'
 import moment from 'moment'
-import { getUsers, } from '../../redux/actions/usersActions'
+import { getHome, } from '../../redux/actions/homeActions'
 
 import "./HomeComponent.scss"
 
@@ -10,76 +10,82 @@ export default function HomeComponent() {
   const dispatch = useDispatch()
   const state = useSelector(state => ({
     auth: state.auth,
-    users: state.users,
+    home: state.home,
   }))
 
   useEffect(() => {
-    // dispatch(getUsers())
+    dispatch(getHome())
   }, [])
 
   const handlePageChange = ({ selected, }) => {
     const newPage = selected + 1
-    if (selected > state.users.data.last_page) {
+    if (selected > state.home.data.last_page) {
       return
     }
-    dispatch(getUsers(newPage))
+    dispatch(getHome(newPage))
   }
 
   const parseDate = date => moment(date).format('YYYY-MM-DD hh:mm')
 
   const pagination = () => {
-    if (!state.users.data) {
+    if (!state.home.data) {
         return null
     }
 
     return <ReactPaginate
-        onPageChange={handlePageChange}
-        previousLabel="Previous"
-        nextLabel="Next"
-        pageClassName="page-item"
-        pageLinkClassName="page-link"
-        previousClassName="page-item"
-        previousLinkClassName="page-link"
-        nextClassName="page-item"
-        nextLinkClassName="page-link"
-        breakLabel="..."
-        breakClassName="page-item"
-        breakLinkClassName="page-link"
-        pageCount={state.users.data.meta.last_page}
-        marginPagesDisplayed={2}
-        pageRangeDisplayed={5}
-        containerClassName="pagination"
-        activeClassName="active"
-        forcePage={state.users.data.meta.current_page - 1}
+      onPageChange={handlePageChange}
+      previousLabel="Previous"
+      nextLabel="Next"
+      pageClassName="page-item"
+      pageLinkClassName="page-link"
+      previousClassName="page-item"
+      previousLinkClassName="page-link"
+      nextClassName="page-item"
+      nextLinkClassName="page-link"
+      breakLabel="..."
+      breakClassName="page-item"
+      breakLinkClassName="page-link"
+      pageCount={state.home.data.meta.last_page}
+      marginPagesDisplayed={2}
+      pageRangeDisplayed={5}
+      containerClassName="pagination"
+      activeClassName="active"
+      forcePage={state.home.data.meta.current_page - 1}
     />
   }
 
   const paginationDetail = () => {
-        return <>
-            <strong>page</strong> ({state.users.data.meta.current_page}),
-            <strong>page_count</strong> ({state.users.data.meta.last_page}),
-            <strong>displayed_items</strong> ({state.users.data.data.length}),
-            <strong>items</strong> ({state.users.data.meta.total})
-        </>
+    return <>
+      <strong>page</strong> ({state.home.data.meta.current_page}),
+      <strong>page_count</strong> ({state.home.data.meta.last_page}),
+      <strong>displayed_items</strong> ({state.home.data.data.length}),
+      <strong>items</strong> ({state.home.data.meta.total})
+    </>
   }
 
   const renderList = () => {
-    if (!state.users.data) {
+    if (!state.home.data) {
       return null
     }
     return (
       <>
-        {paginationDetail()}
-        <ul className="list-group">
-          {state.users.data.data.map((user, index) => (
-            <li key={index} className='list-group-item home-item'>
-              <strong>name</strong> ({user.name}),
-              <strong>email</strong> ({user.email}),
-              <strong>created_at</strong> ({parseDate(user.created_at)}),
-              <strong>updated_at</strong> ({parseDate(user.updated_at)})
-            </li>
+        <div className="col-md-12">
+          {state.home.data.data.map((book, index) => (
+            <div key={index} className="card home-card">
+              <img src={book.jpgImageURL} className="card-img-top" alt="..." />
+              <div className="card-body">
+                <h5 className="card-title">{book.name}</h5>
+                <p className="card-text">
+                  <span className="card-span">Publisher: {book.publisher}</span>
+                  <span className="card-span">Published {book.published}</span>
+                </p>
+                <a href="#" className="btn btn-primary">
+                  View Book
+                </a>
+              </div>
+            </div>
           ))}
-        </ul>
+        </div>
         {paginationDetail()}
       </>
     )
@@ -93,13 +99,13 @@ export default function HomeComponent() {
     console.log('authenticated', state.auth.data)
   }
   if (
-    !state.users.loading &&
-    typeof state.users.data === 'object' &&
-    null !== state.users.data
+    !state.home.loading &&
+    typeof state.home.data === 'object' &&
+    null !== state.home.data
   ) {
-    console.log('users', state.users.data)
+    console.log('home', state.home.data)
   }
-  if (state.auth.loading || state.users.loading) {
+  if (state.auth.loading || state.home.loading) {
     return <div className="container home-container text-center">
       <p>Loading...</p>
     </div>
@@ -108,16 +114,9 @@ export default function HomeComponent() {
   return (
     <>
       <div className='container home-container'>
-        <br />
-        <br />
-        <button className='btn btn-primary'>
-          Test button
-        </button>
-        <br />
-        <br />
-        {/*{pagination()}
+        {pagination()}
         {renderList()}
-        {pagination()}*/}
+        {pagination()}
       </div>
     </>
   )

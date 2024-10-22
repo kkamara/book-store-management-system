@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\V1\Web\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\V1\Web\UserController as WebUserController;
 use App\Http\Controllers\V1\API\UserController;
@@ -23,6 +24,10 @@ Route::prefix('web')
             '/users',
             [WebUserController::class,'getUsers'],
         )->middleware("auth:sanctum");
+        Route::get(
+            '/',
+            [HomeController::class,'home'],
+        );
     });
 
 Route::prefix('/user')->group(function () {

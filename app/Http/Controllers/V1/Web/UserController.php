@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Response;
 use App\Models\V1\User;
-use App\Http\Resources\UserResource;
-use App\Http\Resources\UserCollection;
+use App\Http\Resources\V1\UserResource;
+use App\Http\Resources\V1\UserCollection;
 
 class UserController extends Controller
 {
