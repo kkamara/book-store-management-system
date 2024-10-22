@@ -48,7 +48,7 @@ class BookFactory extends Factory
             "isbn_13" => $isbn13,
             "isbn_10" => $isbn10,
             "user_id" => User::inRandomOrder()->first()->id,
-            "name" => $this->faker->company(),
+            "name" => sprintf("(Sample Book) %s", $this->faker->company()),
             "description" => $this->faker->paragraphs(mt_rand(3, 6), true),
             "jpg_image_url" => "https://cdn.pixabay.com/photo/2016/11/27/12/34/books-1862768_1280.jpg",
             "cost" => $this->faker->numberBetween(0, 2000),

@@ -79,7 +79,7 @@ export default function HomeComponent() {
                 <img src={book.jpgImageURL} className="card-img-top" alt="..." />
               </a>
               <div className="card-body">
-                <h5 className="card-title">{book.name}</h5>
+                <h5 className="card-title book-card-title">{book.name}</h5>
                 <p className="card-text">
                   <span className="card-span">Publisher: {book.publisher}</span>
                   <span className="card-span">Published {book.published}</span>
