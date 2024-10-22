@@ -59,9 +59,9 @@ export default function HomeComponent() {
   const paginationDetail = () => {
     return <>
       <strong>page</strong> ({state.home.data.meta.current_page}),
-      <strong>page_count</strong> ({state.home.data.meta.last_page}),
-      <strong>displayed_items</strong> ({state.home.data.data.length}),
-      <strong>items</strong> ({state.home.data.meta.total})
+      &nbsp;<strong>page count</strong> ({state.home.data.meta.last_page}),
+      &nbsp;<strong>displayed items</strong> ({state.home.data.data.length}),
+      &nbsp;<strong>items</strong> ({state.home.data.meta.total})
     </>
   }
 
