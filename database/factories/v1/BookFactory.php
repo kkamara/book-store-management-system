@@ -25,8 +25,6 @@ class BookFactory extends Factory
         if (mt_rand(0, 1) === 1) {
             $isbn13 = $this->faker->isbn13();
             $isbn10 = $this->faker->isbn10();
-            $edition = BookEdition::E_DITION->value;
-        } else {
             $edition = match(mt_rand(0, 13)) {
                 0 => BookEdition::BIBLIOGRAPHICAL->value,
                 1 => BookEdition::COLLECTORS->value,
@@ -43,6 +41,8 @@ class BookFactory extends Factory
                 12 => BookEdition::LARGE->value,
                 13 => BookEdition::CRITICAL->value,
             };
+        } else {
+            $edition = BookEdition::E_DITION->value;
         }
         return [
             "isbn_13" => $isbn13,
