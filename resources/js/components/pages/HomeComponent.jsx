@@ -32,26 +32,28 @@ export default function HomeComponent() {
         return null
     }
 
-    return <ReactPaginate
-      onPageChange={handlePageChange}
-      previousLabel="Previous"
-      nextLabel="Next"
-      pageClassName="page-item"
-      pageLinkClassName="page-link"
-      previousClassName="page-item"
-      previousLinkClassName="page-link"
-      nextClassName="page-item"
-      nextLinkClassName="page-link"
-      breakLabel="..."
-      breakClassName="page-item"
-      breakLinkClassName="page-link"
-      pageCount={state.home.data.meta.last_page}
-      marginPagesDisplayed={2}
-      pageRangeDisplayed={5}
-      containerClassName="pagination"
-      activeClassName="active"
-      forcePage={state.home.data.meta.current_page - 1}
-    />
+    return <div className="book-pagination">
+      <ReactPaginate
+        onPageChange={handlePageChange}
+        previousLabel="Previous"
+        nextLabel="Next"
+        pageClassName="page-item"
+        pageLinkClassName="page-link"
+        previousClassName="page-item"
+        previousLinkClassName="page-link"
+        nextClassName="page-item"
+        nextLinkClassName="page-link"
+        breakLabel="..."
+        breakClassName="page-item"
+        breakLinkClassName="page-link"
+        pageCount={state.home.data.meta.last_page}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={5}
+        containerClassName="pagination"
+        activeClassName="active"
+        forcePage={state.home.data.meta.current_page - 1}
+      />
+    </div>
   }
 
   const paginationDetail = () => {
@@ -69,6 +71,7 @@ export default function HomeComponent() {
     }
     return (
       <>
+        {paginationDetail()}
         <div className="col-md-12">
           {state.home.data.data.map((book, index) => (
             <div key={index} className="card home-card">
