@@ -15,9 +15,10 @@ class BookResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            "id" => $this->id,
             "isbn13" => $this->isbn_13,
             "isbn10" => $this->isbn_10,
-            "user" => $this->user,
+            "user" => new UserResource($this->user),
             "name" => $this->name,
             "description" => $this->description,
             "jpgImageURL" => $this->jpg_image_url,
