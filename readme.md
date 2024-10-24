@@ -2,6 +2,10 @@
 
 <img src="https://github.com/kkamara/useful/blob/main/book-store-management-system.png?raw=true" alt="book-store-management-system.png" width=""/>
 
+<img src="https://github.com/kkamara/useful/blob/main/book-store-management-system2.png?raw=true" alt="book-store-management-system2.png" width=""/>
+
+<img src="https://github.com/kkamara/useful/blob/main/book-store-management-system3.png?raw=true" alt="book-store-management-system3.png" width=""/>
+
 # Book Store Management System [![API](https://github.com/kkamara/book-store-management-system/actions/workflows/build.yml/badge.svg)](https://github.com/kkamara/book-store-management-system/actions/workflows/build.yml)
 
 (14-Oct-2024) www.1000projects.org challenge. Made with Laravel 11, ReactJS 18 and Filament. This project has admin to insert books or a list of books, payments with Stripe, categories, and reviews. With tests.
