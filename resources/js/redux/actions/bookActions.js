@@ -2,13 +2,13 @@
 import HttpService from '../../services/HttpService'
 import { book, } from '../types'
 
-export const getBook = id => {
+export const getBook = slug => {
   return async dispatch => {
     const http = new HttpService()
 
     dispatch({ type: book.GET_BOOK_PENDING, })
 
-    const path = '/books/'+id
+    const path = '/books/'+slug
     await new Promise((resolve, reject) => {
       http.getData(http.domain+'/sanctum/csrf-cookie').then( 
         http.getData(path).then(res => {

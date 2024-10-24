@@ -31,11 +31,11 @@ Route::prefix('web')
             [HomeController::class, 'home'],
         );
         Route::get(
-            '/books/{book}',
+            '/books/{slug}',
             [BookController::class, 'get'],
         );
         Route::get(
-            '/books/{book}/reviews',
+            '/books/{slug}/reviews',
             [ReviewController::class, 'getReviewByBook'],
         );
     });

@@ -11,7 +11,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class BookController extends Controller
 {
-    public function get(Request $request, Book $book) {
+    public function get(Request $request, string $slug) {
+        $book = Book::where("slug", $slug)->first();
+        if (null === $book) {
+            return response()->json([
+                "message" => "Resource not found.",
+            ], Response::HTTP_NOT_FOUND);
+        }
         if ($book->approved !== BookApproved::APPROVED) {
             return response()->json([
                 "message" => "Resource not found.",

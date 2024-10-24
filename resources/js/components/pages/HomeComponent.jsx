@@ -76,7 +76,7 @@ export default function HomeComponent() {
         <div className="col-md-12">
           {state.home.data.data.map((book, index) => (
             <div key={index} className="card home-card">
-              <a href={`/books/${book.id}`}>
+              <a href={`/books/${book.slug}`}>
                 <img src={book.jpgImageURL} className="card-img-top" alt="..." />
               </a>
               <div className="card-body">
@@ -86,7 +86,7 @@ export default function HomeComponent() {
                   <span className="card-span">Published {book.published}</span>
                   <span className="card-span book-cost">£{book.cost}</span>
                 </p>
-                <a href={`/books/${book.id}`} className="btn btn-primary">
+                <a href={`/books/${book.slug}`} className="btn btn-primary">
                   View Book
                 </a>
               </div>
