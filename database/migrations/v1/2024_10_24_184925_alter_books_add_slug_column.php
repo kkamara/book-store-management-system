@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('books', function (Blueprint $table) {
-            $table->string("slug")->after("isbn_10");
+            $table->string("slug")
+                ->index()
+                ->after("isbn_10");
         });
     }
 
