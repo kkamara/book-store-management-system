@@ -160,7 +160,7 @@ export default function BookComponent() {
             </button>
           </p>
           <div className="collapse description-collapse" id="descriptionCollapse">
-            <div className="card card-body">
+            <div className="card card-body book-description">
               {state.book.data.data.description}
             </div>
           </div>
