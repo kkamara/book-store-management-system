@@ -106,7 +106,7 @@ export default function BookComponent() {
         {state.reviews.data.data.map((review, index) => (
           <div key={index} className="card card-body review-card-body">
               <p>Rated <span className="rating">{review.rating}</span></p>
-              <p>{review.text}</p>
+              <p className="review-text">{review.text}</p>
               <p className="float-right">
                 Submitted {parseDate(review.createdAt)} by {review.user.name}
               </p>
