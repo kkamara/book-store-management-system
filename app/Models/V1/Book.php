@@ -20,9 +20,10 @@ class Book extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        "user_id",
         "isbn_13", // 9780545162074
         "isbn_10", // 0545162076
-        "user_id",
+        "slug",
         "name",
         "description",
         "jpg_image_url",

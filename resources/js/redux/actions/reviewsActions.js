@@ -2,15 +2,15 @@
 import HttpService from '../../services/HttpService'
 import { reviews, } from '../types'
 
-export const getReviews = (bookID, page=null) => {
+export const getReviews = (slug, page=null) => {
   return async dispatch => {
     const http = new HttpService()
 
     dispatch({ type: reviews.GET_REVIEWS_PENDING, })
 
     const path = page ? 
-      "/books/"+bookID+"/reviews?page="+page : 
-      "/books/"+bookID+"/reviews"
+      "/books/"+slug+"/reviews?page="+page : 
+      "/books/"+slug+"/reviews"
     await new Promise((resolve, reject) => {
       http.getData(http.domain+'/sanctum/csrf-cookie').then( 
         http.getData(path).then(res => {

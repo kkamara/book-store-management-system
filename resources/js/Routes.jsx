@@ -20,7 +20,7 @@ export default () => {
       <Routes>
         <Route path={url("/")} element={<Home />}/>
         <Route path={url("/notfound")} element={<NotFound />}/>
-        <Route path={url("/books/:book")} element={<Book />}/>
+        <Route path={url("/books/:slug")} element={<Book />}/>
         <Route path={url("/user/login")} element={<Login />}/>
         <Route path={url("/user/logout")} element={<Logout />}/>
         <Route path={url("/user/register")} element={<Register />}/>

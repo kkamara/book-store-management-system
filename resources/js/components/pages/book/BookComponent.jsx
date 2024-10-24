@@ -15,12 +15,12 @@ export default function BookComponent() {
     book: state.book,
     reviews: state.reviews,
   }))
-  let { book: bookId } = useParams()
+  let { slug } = useParams()
   const navigate = useNavigate()
   const [showReviews, setShowReviews] = useState("")
 
   useEffect(() => {
-    dispatch(getBook(bookId))
+    dispatch(getBook(slug))
   }, [])
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export default function BookComponent() {
       typeof state.book.data === 'object' &&
       null !== state.book.data
     ) {
-      dispatch(getReviews(bookId))
+      dispatch(getReviews(slug))
     }
   }, [state.book])
 
@@ -54,7 +54,7 @@ export default function BookComponent() {
     if (selected > state.reviews.data.last_page) {
       return
     }
-    dispatch(getReviews(bookId, newPage))
+    dispatch(getReviews(slug, newPage))
     setShowReviews("show")
   }
 

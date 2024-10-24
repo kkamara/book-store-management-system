@@ -11,7 +11,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ReviewController extends Controller
 {
-    public function getReviewByBook(Request $request, Book $book) {
+    public function getReviewByBook(Request $request, string $slug) {
+        $book = Book::where("slug", $slug)->first();
+        if (null === $book) {
+            return response()->json([
+                "message" => "Resource not found.",
+            ], Response::HTTP_NOT_FOUND);
+        }
         if ($book->approved !== BookApproved::APPROVED) {
             return response()->json([
                 "message" => "Resource not found.",

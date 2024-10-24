@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\V1\User;
 use App\Enums\V1\BookEdition;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\V1\Book>
@@ -20,6 +21,8 @@ class BookFactory extends Factory
      */
     public function definition(): array
     {
+        $name = sprintf("(Sample Book) %s", $this->faker->company());
+
         $isbn13 = null;
         $isbn10 = null;
         if (mt_rand(0, 1) === 1) {
@@ -47,8 +50,9 @@ class BookFactory extends Factory
         return [
             "isbn_13" => $isbn13,
             "isbn_10" => $isbn10,
+            "slug" => Str::slug($name." ".mt_rand(100, 999)),
             "user_id" => User::inRandomOrder()->first()->id,
-            "name" => sprintf("(Sample Book) %s", $this->faker->company()),
+            "name" => $name,
             "description" => $this->faker->paragraphs(mt_rand(3, 6), true),
             "jpg_image_url" => "https://cdn.pixabay.com/photo/2016/11/27/12/34/books-1862768_1280.jpg",
             "cost" => $this->faker->numberBetween(0, 2000),
