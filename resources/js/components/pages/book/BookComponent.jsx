@@ -3,6 +3,7 @@ import { useDispatch, useSelector, } from 'react-redux'
 import { useParams, useNavigate, } from 'react-router'
 import moment from 'moment'
 import ReactPaginate from 'react-paginate'
+import { Helmet, } from "react-helmet"
 import { getBook, } from '../../../redux/actions/bookActions'
 import { getReviews, } from '../../../redux/actions/reviewsActions'
 
@@ -127,6 +128,9 @@ export default function BookComponent() {
   }
   if (state.book.loading || state.reviews.loading) {
     return <div className="container book-container text-center">
+      <Helmet>
+          <title>{import.meta.env.VITE_APP_NAME}</title>
+      </Helmet>
       <p>Loading...</p>
     </div>
   }
@@ -134,6 +138,9 @@ export default function BookComponent() {
   return (
     <>
       <div className='container book-container'>
+        <Helmet>
+            <title>{state.book.data.data.name} | {import.meta.env.VITE_APP_NAME}</title>
+        </Helmet>
         <h1>{state.book.data.data.name}</h1>
         <img
           src={state.book.data.data.jpgImageURL}

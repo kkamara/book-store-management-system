@@ -1,6 +1,7 @@
 import React, { useEffect, useState, } from 'react'
 import { useNavigate, } from 'react-router-dom'
 import { useDispatch, useSelector, } from 'react-redux'
+import { Helmet, } from "react-helmet"
 import { login, } from '../../../redux/actions/authActions'
 
 import "./LoginComponent.scss"
@@ -41,6 +42,9 @@ export default function LoginComponent() {
 
   if (state.auth.loading) {
     return <div className='container login-container text-center'>
+      <Helmet>
+          <title>Login | {import.meta.env.VITE_APP_NAME}</title>
+      </Helmet>
       <p>Loading...</p>
     </div>
   }
@@ -48,6 +52,9 @@ export default function LoginComponent() {
   return (
     <>
       <div className='container login-container'>
+        <Helmet>
+            <title>Login | {import.meta.env.VITE_APP_NAME}</title>
+        </Helmet>
         <div className="col-md-4 offset-md-4">
           <h3 className="lead">Login</h3>
           <form method="post" onSubmit={onFormSubmit}>

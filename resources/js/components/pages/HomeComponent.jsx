@@ -2,6 +2,7 @@ import React, { useEffect, } from 'react'
 import { useDispatch, useSelector, } from 'react-redux'
 import ReactPaginate from 'react-paginate'
 import moment from 'moment'
+import { Helmet, } from "react-helmet"
 import { getHome, } from '../../redux/actions/homeActions'
 
 import "./HomeComponent.scss"
@@ -113,6 +114,9 @@ export default function HomeComponent() {
   }
   if (state.auth.loading || state.home.loading) {
     return <div className="container home-container text-center">
+      <Helmet>
+          <title>Home | {import.meta.env.VITE_APP_NAME}</title>
+      </Helmet>
       <p>Loading...</p>
     </div>
   }
@@ -120,6 +124,9 @@ export default function HomeComponent() {
   return (
     <>
       <div className='container home-container'>
+        <Helmet>
+            <title>Home | {import.meta.env.VITE_APP_NAME}</title>
+        </Helmet>
         {pagination()}
         {renderList()}
         {pagination()}
