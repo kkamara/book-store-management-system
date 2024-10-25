@@ -2,7 +2,7 @@ name: Tests Pipeline
 on: [push, pull_request]
 env:
   MIGRATE_FLAGS: "--path=database/migrations/v1 --seed --force"
-  PHPUNIT_FLAGS: "--filter=V1 --stop-on-failure"
+  PHPUNIT_FLAGS: "--testsuite=Feature --stop-on-failure"
 jobs:
   laravel:
     name: Tests Pipeline (PHP ${{ matrix.php-versions }})
