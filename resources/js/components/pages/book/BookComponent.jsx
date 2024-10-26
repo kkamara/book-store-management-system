@@ -6,6 +6,7 @@ import ReactPaginate from 'react-paginate'
 import { Helmet, } from "react-helmet"
 import { getBook, } from '../../../redux/actions/bookActions'
 import { getReviews, } from '../../../redux/actions/reviewsActions'
+import { authorize, } from '../../../redux/actions/authActions'
 
 import "./BookComponent.scss"
 
@@ -14,6 +15,7 @@ export default function BookComponent() {
   const state = useSelector(state => ({
     book: state.book,
     reviews: state.reviews,
+    auth: state.auth,
   }))
   let { slug } = useParams()
   const navigate = useNavigate()
@@ -21,6 +23,7 @@ export default function BookComponent() {
 
   useEffect(() => {
     dispatch(getBook(slug))
+    dispatch(authorize())
   }, [])
 
   useEffect(() => {
@@ -47,6 +50,17 @@ export default function BookComponent() {
       return "Reviews"
     }
     return `Reviews (${reviewAverage})`
+  }
+
+  const handleAddToCart = () => {
+    if (
+      !state.auth.loading &&
+      null === state.auth.data
+    ) {
+      // Add to cache cart
+    } else {
+      // Add to user cart
+    }
   }
 
   const handlePageChange = ({ selected, }) => {
@@ -120,6 +134,13 @@ export default function BookComponent() {
   const parseDate = date => moment(date).format('YYYY-MM-DD hh:mm')
 
   if (
+    !state.auth.loading &&
+    typeof state.auth.data === 'object' &&
+    null !== state.auth.data
+  ) {
+    console.log('authenticated', state.auth.data)
+  }
+  if (
     !state.book.loading &&
     typeof state.book.data === 'object' &&
     null !== state.book.data
@@ -148,7 +169,13 @@ export default function BookComponent() {
           className="book-cover"
         />
         <div className="col-md-12 book-detail">
-          <span className="book-cost">£{state.book.data.data.cost}</span> <button className="btn btn-primary add-to-cart">Add to cart</button>
+          <span className="book-cost">£{state.book.data.data.cost}</span> 
+          <button
+            className="btn btn-primary add-to-cart"
+            onClick={handleAddToCart}
+          >
+            Add to cart
+          </button>
         </div>
         <div className="col-md-12 review-container">
           <p className="d-inline-flex gap-1">
