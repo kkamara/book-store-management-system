@@ -10,7 +10,6 @@ import "./HomeComponent.scss"
 export default function HomeComponent() {
   const dispatch = useDispatch()
   const state = useSelector(state => ({
-    auth: state.auth,
     home: state.home,
   }))
 
@@ -99,20 +98,13 @@ export default function HomeComponent() {
   }
 
   if (
-    !state.auth.loading &&
-    typeof state.auth.data === 'object' &&
-    null !== state.auth.data
-  ) {
-    console.log('authenticated', state.auth.data)
-  }
-  if (
     !state.home.loading &&
     typeof state.home.data === 'object' &&
     null !== state.home.data
   ) {
     console.log('home', state.home.data)
   }
-  if (state.auth.loading || state.home.loading) {
+  if (state.home.loading) {
     return <div className="container home-container text-center">
       <Helmet>
           <title>Home | {import.meta.env.VITE_APP_NAME}</title>

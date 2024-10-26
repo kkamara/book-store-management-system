@@ -55,7 +55,6 @@ class ReviewTest extends TestCase
             $json->hasAll(["data", "links", "meta"])
                 ->missing("message")
         )
-        
             ->assertJsonFragment(["id" => $reviews->first()->id])
             ->assertStatus(200);
     }
