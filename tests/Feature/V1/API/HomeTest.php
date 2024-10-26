@@ -4,8 +4,6 @@ namespace Tests\Feature\V1\API;
 
 use Illuminate\Foundation\Testing\RefreshDatabaseState;
 use Illuminate\Contracts\Console\Kernel;
-use App\Http\Resources\V1\BookCollection;
-use App\Models\V1\Book;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
