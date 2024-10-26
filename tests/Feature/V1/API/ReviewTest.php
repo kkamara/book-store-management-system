@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Illuminate\Testing\Fluent\AssertableJson;
 
-class BookTest extends TestCase
+class ReviewTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -41,18 +41,22 @@ class BookTest extends TestCase
     }
 
     /**
-     * A basic feature test BookController get route.
+     * A basic feature test ReviewController get route.
      */
-    public function testBook(): void
+    public function testReview(): void
     {
         $this->seed();
         $book = Book::where("approved", 1)->firstOrFail();
-        $response = $this->getJson("/api/web/books/".$book->slug);
+        $reviews = $book->reviews()
+            ->where("approved", 1)
+            ->paginate(3);
+        $response = $this->getJson("/api/web/books/".$book->slug."/reviews");
         $response->assertJson(fn (AssertableJson $json) =>
-            $json->has("data")
+            $json->hasAll(["data", "links", "meta"])
                 ->missing("message")
         )
-            ->assertJsonPath("data.id", $book->id)
+        
+            ->assertJsonFragment(["id" => $reviews->first()->id])
             ->assertStatus(200);
     }
 
