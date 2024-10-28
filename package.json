@@ -10,6 +10,9 @@
         "@vitejs/plugin-react": "^4.2.1",
         "axios": "^1.6.4",
         "bootstrap": "^5.3",
+        "@fortawesome/fontawesome-svg-core": "^6.6.0",
+        "@fortawesome/free-solid-svg-icons": "^6.6.0",
+        "@fortawesome/react-fontawesome": "^0.2.2",
         "jquery": "^3.6.3",
         "laravel-vite-plugin": "^1.0",
         "moment": "^2.29.2",
@@ -25,10 +28,5 @@
         "redux-thunk": "^2.3.0",
         "sass": "^1.32.11",
         "vite": "^5.0"
-    },
-    "dependencies": {
-        "@fortawesome/fontawesome-svg-core": "^6.6.0",
-        "@fortawesome/free-solid-svg-icons": "^6.6.0",
-        "@fortawesome/react-fontawesome": "^0.2.2"
     }
 }
