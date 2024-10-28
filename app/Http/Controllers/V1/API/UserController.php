@@ -16,7 +16,7 @@ class UserController extends Controller
     public function register(Request $request) {
         $validator = Validator::make(
             $request->only([
-                'name', 'last_name', 'email', 'password', 'password_confirmation',
+                'name', 'email', 'password', 'password_confirmation',
             ]),
             [
                 'name' => 'required',

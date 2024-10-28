@@ -21,7 +21,6 @@ class UserController extends Controller
             ]),
             [
                 'name' => 'required',
-                'last_name' => 'required',
                 'email' => 'required',
                 'password' => 'required|confirmed',
             ]
