@@ -32,7 +32,7 @@ export default function Header(props) {
             <li>
               <Link
                 className="dropdown-item"
-                to="/"
+                to="/orders"
               >
                 My Orders
               </Link>

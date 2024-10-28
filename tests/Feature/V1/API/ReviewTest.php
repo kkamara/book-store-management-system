@@ -52,7 +52,7 @@ class ReviewTest extends TestCase
             ->paginate(3);
         $response = $this->getJson("/api/web/books/".$book->slug."/reviews");
         $response->assertJson(fn (AssertableJson $json) =>
-            $json->hasAll(["data", "links", "meta"])
+            $json->hasAll(["data", "links", "meta",])
                 ->missing("message")
         )
             ->assertJsonFragment(["id" => $reviews->first()->id])

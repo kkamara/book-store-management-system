@@ -1,4 +1,4 @@
-import { home, } from '../types'
+import { orders, } from '../types'
 
 const initState = {
   data: null,
@@ -6,23 +6,23 @@ const initState = {
   loading: true,
 }
 
-export default function homeReducer (state = initState, action) {
+export default function ordersReducer (state = initState, action) {
   switch (action.type) {
     
-    case home.GET_HOME_ERROR:
+    case orders.GET_ORDERS_ERROR:
       return {
         ...state,
         error: action.payload,
         loading: false,
       }
     
-    case home.GET_HOME_PENDING:
+    case orders.GET_ORDERS_PENDING:
       return {
         ...state,
         loading: true,
       }
     
-    case home.GET_HOME_SUCCESS:
+    case orders.GET_ORDERS_SUCCESS:
       return {
         ...state,
         data: action.payload,

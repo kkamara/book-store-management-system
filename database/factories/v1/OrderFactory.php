@@ -20,6 +20,7 @@ class OrderFactory extends Factory
     {
         return [
             "user_id" => User::inRandomOrder()->first()->id,
+            "reference_number" => mt_rand(100000000, 999999999),
             "cost" => $this->faker->numberBetween(0, 2000),
             "delivery_cost" => 399,
             "status" => match(mt_rand(0, 3)) {

@@ -1,0 +1,49 @@
+.orders-card {
+    width: 100%;
+    text-align: left;
+    margin: 10px;
+}
+
+.orders-card .card-text {
+    font-size: 12px;
+}
+
+.orders-pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.book-card-title {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.order-link-container {
+    text-align: right;
+}
+
+.search-orders-form, .query-orders-form-group {
+    margin-bottom: 10px;
+}
+
+.query-orders-form-group {
+    text-align: left;
+}
+
+.search-orders-button-container {
+    text-align: right;
+}
+
+.clear-orders-search-form {
+    margin-right: 10px;
+}
+
+.search-orders-form {
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 1px 1px 1px gray;
+}

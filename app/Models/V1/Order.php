@@ -19,6 +19,7 @@ class Order extends Model
      */
     protected $fillable = [
         "user_id",
+        "reference_number",
         "cost",
         "delivery_cost",
         "status",
@@ -42,5 +43,26 @@ class Order extends Model
 
     public function orderBooks(): HasMany {
         return $this->hasMany(OrderBook::class);
+    }
+
+    public function getFormattedCostAttribute() {
+        return number_format(
+            $this->cost / 100,
+            2
+        );
+    }
+
+    public function getFormattedDeliveryCostAttribute() {
+        return number_format(
+            $this->delivery_cost / 100,
+            2
+        );
+    }
+
+    public function getFormattedTotalCostAttribute() {
+        return number_format(
+            ($this->cost + $this->delivery_cost) / 100,
+            2
+        );
     }
 }

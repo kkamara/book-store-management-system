@@ -51,7 +51,7 @@ class HomeTest extends TestCase
             ->paginate(8);
         $response = $this->getJson("/api/web/");
         $response->assertJson(fn (AssertableJson $json) =>
-            $json->hasAll(["data", "links", "meta"])
+            $json->hasAll(["data", "links", "meta",])
                 ->missing("message")
                 ->etc()
         )
