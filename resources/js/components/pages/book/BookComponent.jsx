@@ -65,7 +65,7 @@ export default function BookComponent() {
 
   const handlePageChange = ({ selected, }) => {
     const newPage = selected + 1
-    if (newPage > state.reviews.meta.data.last_page) {
+    if (newPage > state.reviews.meta.data.lastPage) {
       return
     }
     dispatch(getReviews(slug, newPage))
@@ -91,20 +91,20 @@ export default function BookComponent() {
         breakLabel="..."
         breakClassName="page-item"
         breakLinkClassName="page-link"
-        pageCount={state.reviews.data.meta.last_page}
+        pageCount={state.reviews.data.meta.lastPage}
         marginPagesDisplayed={2}
         pageRangeDisplayed={5}
         containerClassName="pagination"
         activeClassName="active"
-        forcePage={state.reviews.data.meta.current_page - 1}
+        forcePage={state.reviews.data.meta.currentPage - 1}
       />
     </div>
   }
 
   const paginationDetail = () => {
     return <div className="text-center">
-      <strong>page</strong> ({state.reviews.data.meta.current_page}),
-      &nbsp;<strong>page count</strong> ({state.reviews.data.meta.last_page}),
+      <strong>page</strong> ({state.reviews.data.meta.currentPage}),
+      &nbsp;<strong>page count</strong> ({state.reviews.data.meta.lastPage}),
       &nbsp;<strong>displayed items</strong> ({state.reviews.data.data.length}),
       &nbsp;<strong>items</strong> ({state.reviews.data.meta.total})
     </div>
