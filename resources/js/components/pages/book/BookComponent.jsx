@@ -65,7 +65,7 @@ export default function BookComponent() {
 
   const handlePageChange = ({ selected, }) => {
     const newPage = selected + 1
-    if (selected > state.reviews.meta.data.last_page) {
+    if (newPage > state.reviews.meta.data.last_page) {
       return
     }
     dispatch(getReviews(slug, newPage))
