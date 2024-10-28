@@ -2,7 +2,7 @@ import React, { useEffect, useState, } from 'react'
 import { useNavigate, } from 'react-router-dom'
 import { useDispatch, useSelector, } from 'react-redux'
 import { Helmet, } from "react-helmet"
-import { login, } from '../../../redux/actions/authActions'
+import { login, authorize, } from '../../../redux/actions/authActions'
 
 import "./LoginComponent.scss"
 
@@ -20,6 +20,8 @@ export default function LoginComponent() {
   useEffect(() => {
     if (state.auth.data) {
       window.location.href = "/"
+    } else if (state.auth.loading) {
+      dispatch(authorize())
     }
   }, [state.auth])
 
