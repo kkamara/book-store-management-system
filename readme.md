@@ -20,7 +20,7 @@
 
 * [Unit Tests](#unit-tests)
 
-* [Misc](#misc)
+* [Misc.](#misc)
 
 * [Contributing](#contributing)
 
@@ -84,7 +84,7 @@ php artisan test --filter=V1
 
 View the unit test code [here](https://raw.githubusercontent.com/kkamara/php-reactjs-boilerplate/main/tests/Unit/Api/UsersTest.php).
 
-## Misc
+## Misc.
 
 [See PHP ReactJS Boilerplate app](https://github.com/kkamara/php-reactjs-boilerplate)
 
