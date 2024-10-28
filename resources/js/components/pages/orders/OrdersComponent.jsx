@@ -148,21 +148,21 @@ export default function HomeComponent() {
         {paginationDetail()}
         <div className="col-md-12">
           {state.orders.data.data.map((order, index) => (
-            <div class="card orders-card">
-              <div class="card-body">
-                <h5 class="card-title">Order {getOrderStatusBadge(order.status)}, Reference: {order.referenceNumber}</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">Ordered at {parseDate(order.createdAt)}</h6>
-                <p class="card-text">
+            <div className="card orders-card">
+              <div className="card-body">
+                <h5 className="card-title">Order {getOrderStatusBadge(order.status)}, Reference: {order.referenceNumber}</h5>
+                <h6 className="card-subtitle mb-2 text-body-secondary">Ordered at {parseDate(order.createdAt)}</h6>
+                <p className="card-text">
                   Cost: £{order.cost}
                 </p>
-                <p class="card-text">
+                <p className="card-text">
                   Delivery cost: £{order.deliveryCost}
                 </p>
-                <p class="card-text">
+                <p className="card-text">
                   Total cost: £{order.totalCost}
                 </p>
                 <div className="order-link-container">
-                  <a href={`/orders/${order.referenceNumber}`} class="card-link order-link btn btn-primary">View Order</a>
+                  <a href={`/orders/${order.referenceNumber}`} className="card-link order-link btn btn-primary">View Order</a>
                 </div>
               </div>
             </div>
