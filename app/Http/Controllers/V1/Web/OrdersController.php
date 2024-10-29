@@ -16,14 +16,15 @@ class OrdersController extends Controller
     {
         $orders = Order::where("user_id", auth()->user()->id)
             ->orderBy("id", "DESC");
-        if ($request->input("query")) {
-            $query = filter_var($request->input("query"), FILTER_SANITIZE_STRING);
-            $orders->where("reference_number", "LIKE", "%".$query."%");
-            $orders->orWhere("cost", "LIKE", "%".$query."%");
-            $orders->orWhere("delivery_cost", "LIKE", "%".$query."%");
-            $orders->orWhere("status", "LIKE", "%".$query."%");
-            $orders->orWhere("created_at", "LIKE", "%".$query."%");
-            $orders->orWhere("updated_at", "LIKE", "%".$query."%");
+        $unsafeQuery = $request->input("query");
+        if ($unsafeQuery) {
+            $safeQuery = filter_var($unsafeQuery, FILTER_SANITIZE_STRING);
+            $orders->where("reference_number", "LIKE", "%".$safeQuery."%");
+            $orders->orWhere("cost", "LIKE", "%".$safeQuery."%");
+            $orders->orWhere("delivery_cost", "LIKE", "%".$safeQuery."%");
+            $orders->orWhere("status", "LIKE", "%".$safeQuery."%");
+            $orders->orWhere("created_at", "LIKE", "%".$safeQuery."%");
+            $orders->orWhere("updated_at", "LIKE", "%".$safeQuery."%");
         }
         return new OrderCollection(
             $orders->paginate(8)
