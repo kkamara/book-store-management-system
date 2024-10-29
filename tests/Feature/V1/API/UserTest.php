@@ -10,7 +10,7 @@ use App\Models\V1\User;
 use Illuminate\Foundation\Testing\RefreshDatabaseState;
 use Illuminate\Contracts\Console\Kernel;
 
-class UsersTest extends TestCase
+class UserTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 

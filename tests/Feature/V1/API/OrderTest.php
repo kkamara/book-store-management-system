@@ -12,7 +12,7 @@ use Illuminate\Foundation\Testing\RefreshDatabaseState;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Laravel\Sanctum\Sanctum;
 
-class OrdersTest extends TestCase
+class OrderTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
@@ -150,9 +150,9 @@ class OrdersTest extends TestCase
     }
 
     /**
-     * A basic feature test OrdersController get route by doesn't belong to user.
+     * A basic feature test OrdersController get route not found by doesn't belong to user.
      */
-    public function testGetOrderByDoesntBelongToUser(): void
+    public function testGetOrderNotFoundByDoesntBelongToUser(): void
     {
         $this->seed();
         $email = "jane@doe.com";
