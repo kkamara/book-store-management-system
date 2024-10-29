@@ -40,6 +40,10 @@ Route::prefix('web')
             [BookController::class, 'get'],
         );
         Route::get(
+            '/orders/{referenceNumber}',
+            [OrderController::class, 'show'],
+        )->middleware("auth:sanctum");
+        Route::get(
             '/books/{slug}/reviews',
             [ReviewController::class, 'getReviewByBook'],
         );

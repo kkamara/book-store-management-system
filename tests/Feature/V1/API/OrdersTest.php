@@ -108,4 +108,65 @@ class OrdersTest extends TestCase
             ->assertJsonCount(0, "data")
             ->assertStatus(200);
     }
+
+    /**
+     * A basic feature test OrdersController get route.
+     */
+    public function testGetOrder(): void
+    {
+        $this->seed();
+        $email = "jane@doe.com";
+        $user = User::where(compact("email"))->firstOrFail();
+        Sanctum::actingAs(
+            $user,
+        );
+        $order = Order::where("user_id", $user->id)
+            ->inRandomOrder()
+            ->firstOrFail();
+        $response = $this->getJson("/api/web/orders/".$order->reference_number);
+        $response->assertJson(fn (AssertableJson $json) =>
+            $json->has("data")
+        )
+            ->assertJsonFragment(["referenceNumber" => $order->reference_number,])
+            ->assertStatus(200);
+    }
+
+    /**
+     * A basic feature test OrdersController get route not found by exists.
+     */
+    public function testGetOrderNotFoundByExists(): void
+    {
+        $this->seed();
+        $email = "jane@doe.com";
+        $user = User::where(compact("email"))->firstOrFail();
+        Sanctum::actingAs(
+            $user,
+        );
+        $response = $this->getJson("/api/web/orders/doesntexist");
+        $response->assertJson(fn (AssertableJson $json) =>
+            $json->has("message")
+        )
+            ->assertStatus(404);
+    }
+
+    /**
+     * A basic feature test OrdersController get route by doesn't belong to user.
+     */
+    public function testGetOrderByDoesntBelongToUser(): void
+    {
+        $this->seed();
+        $email = "jane@doe.com";
+        $user = User::where(compact("email"))->firstOrFail();
+        Sanctum::actingAs(
+            $user,
+        );
+        $order = Order::where("user_id", "!=", $user->id)
+            ->inRandomOrder()
+            ->firstOrFail();
+        $response = $this->getJson("/api/web/orders/".$order->reference_number);
+        $response->assertJson(value: fn (AssertableJson $json) =>
+            $json->has("message")
+        )
+            ->assertStatus(404);
+    }
 }
