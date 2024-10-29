@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\V1\Web\BookController;
 use App\Http\Controllers\V1\Web\HomeController;
-use App\Http\Controllers\V1\Web\OrdersController;
+use App\Http\Controllers\V1\Web\OrderController;
 use App\Http\Controllers\V1\Web\ReviewController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\V1\Web\UserController as WebUserController;
@@ -33,7 +33,7 @@ Route::prefix('web')
         );
         Route::get(
             '/orders',
-            [OrdersController::class, 'index'],
+            [OrderController::class, 'index'],
         )->middleware("auth:sanctum");
         Route::get(
             '/books/{slug}',
