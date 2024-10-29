@@ -38,4 +38,11 @@ class OrderBook extends Model
     public function order(): BelongsTo {
         return $this->belongsTo(Order::class);
     }
+
+    public function getFormattedCostAttribute() {
+        return number_format(
+            $this->cost / 100,
+            2
+        );
+    }
 }

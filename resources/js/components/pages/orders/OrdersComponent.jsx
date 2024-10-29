@@ -162,7 +162,12 @@ export default function HomeComponent() {
                   Total cost: £{order.totalCost}
                 </p>
                 <div className="order-link-container">
-                  <a href={`/orders/${order.referenceNumber}`} class="card-link order-link btn btn-primary">View Order</a>
+                  <a
+                    href={`/orders/${order.referenceNumber}`}
+                    class="card-link order-link btn btn-primary"
+                  >
+                    View Order
+                  </a>
                 </div>
               </div>
             </div>
