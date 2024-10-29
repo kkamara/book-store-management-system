@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\V1\Web\BookController;
 use App\Http\Controllers\V1\Web\HomeController;
+use App\Http\Controllers\V1\Web\OrderBookController;
 use App\Http\Controllers\V1\Web\OrderController;
 use App\Http\Controllers\V1\Web\ReviewController;
 use Illuminate\Support\Facades\Route;
@@ -42,6 +43,10 @@ Route::prefix('web')
         Route::get(
             '/orders/{referenceNumber}',
             [OrderController::class, 'show'],
+        )->middleware("auth:sanctum");
+        Route::get(
+            '/orders/{referenceNumber}/products',
+            [OrderBookController::class, 'index'],
         )->middleware("auth:sanctum");
         Route::get(
             '/books/{slug}/reviews',

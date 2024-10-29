@@ -16,7 +16,6 @@ class OrderBookResource extends JsonResource
     {
         return [
             "id" => $this->id,
-            "order" => new OrderResource($this->order),
             "isbn13" => $this->isbn_13,
             "isbn10" => $this->isbn_10,
             "slug" => $this->slug,
