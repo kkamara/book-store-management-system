@@ -37,6 +37,8 @@ class BookController extends Controller
                 "desc" => $books->orderBy("id", "DESC"),
                 "asc" => $books->orderBy("id", "ASC"),
             };
+        } else {
+            $books = $books->orderBy("id", "DESC");
         }
         
         $unsafeSelectBibliographicalEdition = $request->input("selectBibliographicalEdition");
