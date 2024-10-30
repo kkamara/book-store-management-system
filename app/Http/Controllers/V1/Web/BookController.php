@@ -50,7 +50,7 @@ class BookController extends Controller
         $unsafeSelectBookEdition = $request->input("selectBookEdition");
         $unsafeSelectCheapEdition = $request->input("selectCheapEdition");
         $unsafeSelectColonialEdition = $request->input("selectColonialEdition");
-        $unsafeSelectColonialEdition = $request->input("selectColonialEdition");
+        $unsafeSelectCadetEdition = $request->input("selectCadetEdition");
         $unsafeSelectLargeEdition = $request->input("selectLargeEdition");
         $unsafeSelectCriticalEdition = $request->input("selectCriticalEdition");
         if ($unsafeSelectBibliographicalEdition) {
@@ -108,7 +108,7 @@ class BookController extends Controller
                 "edition",
                 BookEdition::COLONIAL->value
             );
-        } else if ($unsafeSelectColonialEdition) {
+        } else if ($unsafeSelectCadetEdition) {
             $books = $books->where(
                 "edition",
                 BookEdition::CADET->value
