@@ -22,12 +22,12 @@ class OrderController extends Controller
         $unsafeQuery = $request->input("query");
         if ($unsafeQuery) {
             $safeQuery = filter_var($unsafeQuery, FILTER_SANITIZE_STRING);
-            $orders->where("reference_number", "LIKE", "%".$safeQuery."%");
-            $orders->orWhere("cost", "LIKE", "%".$safeQuery."%");
-            $orders->orWhere("delivery_cost", "LIKE", "%".$safeQuery."%");
-            $orders->orWhere("status", "LIKE", "%".$safeQuery."%");
-            $orders->orWhere("created_at", "LIKE", "%".$safeQuery."%");
-            $orders->orWhere("updated_at", "LIKE", "%".$safeQuery."%");
+            $orders = $orders->where("reference_number", "LIKE", "%".$safeQuery."%");
+            $orders = $orders->orWhere("cost", "LIKE", "%".$safeQuery."%");
+            $orders = $orders->orWhere("delivery_cost", "LIKE", "%".$safeQuery."%");
+            $orders = $orders->orWhere("status", "LIKE", "%".$safeQuery."%");
+            $orders = $orders->orWhere("created_at", "LIKE", "%".$safeQuery."%");
+            $orders = $orders->orWhere("updated_at", "LIKE", "%".$safeQuery."%");
         }
         return new OrderCollection(
             $orders->paginate(8)
