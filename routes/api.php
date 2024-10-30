@@ -37,6 +37,10 @@ Route::prefix('web')
             [OrderController::class, 'index'],
         )->middleware("auth:sanctum");
         Route::get(
+            '/books/search',
+            [BookController::class, 'search'],
+        );
+        Route::get(
             '/books/{slug}',
             [BookController::class, 'get'],
         );
