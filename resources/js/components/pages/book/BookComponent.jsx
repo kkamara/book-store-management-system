@@ -65,7 +65,7 @@ export default function BookComponent() {
 
   const handlePageChange = ({ selected, }) => {
     const newPage = selected + 1
-    if (newPage > state.reviews.meta.data.lastPage) {
+    if (newPage > state.reviews.data.meta.data.lastPage) {
       return
     }
     dispatch(getReviews(slug, newPage))
@@ -77,7 +77,7 @@ export default function BookComponent() {
         return null
     }
 
-    return <div className="review-pagination">
+    return <div className="reviews-pagination">
       <ReactPaginate
         onPageChange={handlePageChange}
         previousLabel="Previous"
@@ -177,7 +177,7 @@ export default function BookComponent() {
             Add to cart
           </button>
         </div>
-        <div className="col-md-12 review-container">
+        <div className="col-md-12 reviews-container">
           <p className="d-inline-flex gap-1">
             <button className="btn btn-info" type="button" data-bs-toggle="collapse" data-bs-target="#descriptionCollapse" aria-expanded="false" aria-controls="descriptionCollapse">
               Description
