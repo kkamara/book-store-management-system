@@ -30,7 +30,7 @@ class BookResource extends JsonResource
             "author" => $this->author,
             "published" => $this->published,
             "publisher" => $this->publisher,
-            "approved" => $this->approved,
+            "categories" => new CategoryCollection($this->categories),
         ];
     }
 }

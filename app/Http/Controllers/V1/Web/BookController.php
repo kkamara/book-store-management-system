@@ -14,13 +14,18 @@ use Symfony\Component\HttpFoundation\Response;
 class BookController extends Controller
 {
     public function search(Request $request) {
-        $books = new Book();
+        $books = (new Book())->select([
+            "books.id", "books.user_id", "books.isbn_13", "books.isbn_10", 
+            "books.slug", "books.name", "books.description", "books.jpg_image_url",
+            "books.cost", "books.rating_average", "books.binding", "books.edition",
+            "books.author", "books.published", "books.publisher", "books.approved",
+        ])->distinct();
         $unsafeQuery = $request->input("query");
         if ($unsafeQuery) {
             $safeQuery = filter_var($unsafeQuery, FILTER_SANITIZE_STRING);
             $books = $books->where("isbn_13", "LIKE", "%".$safeQuery."%");
             $books = $books->orWhere("isbn_10", "LIKE", "%".$safeQuery."%");
-            $books = $books->orWhere("name", "LIKE", "%".$safeQuery."%");
+            $books = $books->orWhere("books.name", "LIKE", "%".$safeQuery."%");
             $books = $books->orWhere("cost", "LIKE", "%".$safeQuery."%");
             $books = $books->orWhere("author", "LIKE", "%".$safeQuery."%");
             $books = $books->orWhere("published", "LIKE", "%".$safeQuery."%");
@@ -28,17 +33,17 @@ class BookController extends Controller
             $books = $books->orWhere("rating_average", "LIKE", "%".$safeQuery."%");
             $books = $books->orWhere("binding", "LIKE", "%".$safeQuery."%");
             $books = $books->orWhere("edition", "LIKE", "%".$safeQuery."%");
-            $books = $books->orWhere("created_at", "LIKE", "%".$safeQuery."%");
-            $books = $books->orWhere("updated_at", "LIKE", "%".$safeQuery."%");
+            $books = $books->orWhere("books.created_at", "LIKE", "%".$safeQuery."%");
+            $books = $books->orWhere("books.updated_at", "LIKE", "%".$safeQuery."%");
         }
         $unsafeOrderById = $request->input("orderById");
         if ($unsafeOrderById) {
             $books = match(strtolower($unsafeOrderById)) {
-                "desc" => $books->orderBy("id", "DESC"),
-                "asc" => $books->orderBy("id", "ASC"),
+                "desc" => $books->orderBy("books.id", "DESC"),
+                "asc" => $books->orderBy("books.id", "ASC"),
             };
         } else {
-            $books = $books->orderBy("id", "DESC");
+            $books = $books->orderBy("books.id", "DESC");
         }
         
         $unsafeSelectBibliographicalEdition = $request->input("selectBibliographicalEdition");
@@ -125,6 +130,21 @@ class BookController extends Controller
                 "edition",
                 BookEdition::CRITICAL->value
             );
+        }
+
+        $unsafeCategory = $request->input("category");
+        if ($unsafeCategory) {
+            $safeCategory = filter_var(
+                $request->input("category"),
+                FILTER_SANITIZE_STRING
+            );
+            $books->leftJoin("book_categories", "book_categories.book_id", "=", "books.id")
+                ->leftJoin("categories", "book_categories.category_id", "=", "categories.id")
+                ->where(
+                    "categories.name",
+                    "LIKE",
+                    "%".$safeCategory."%",
+                );
         }
         return new BookCollection(
             $books->where("approved", 1)

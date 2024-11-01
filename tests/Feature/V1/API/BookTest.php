@@ -153,6 +153,27 @@ class BookTest extends TestCase
     }
 
     /**
+     * A basic feature test BookController index route by selected category.
+     */
+    public function testSearchBooksBySelectedCategory(): void
+    {
+        $this->seed();
+        $book = Book::where("approved", 1)
+            ->inRandomOrder()
+            ->whereHas("categories")
+            ->firstOrFail();
+        $categoryName = $book->categories()->firstOrFail()->name;
+        $response = $this->getJson(
+            "/api/web/books/search?category=".$categoryName,
+        );
+        $response->assertJson(fn (AssertableJson $json) =>
+            $json->hasAll(["data", "links", "meta",])
+        )
+            ->assertJsonFragment(["name" => $categoryName,])
+            ->assertStatus(200);
+    }
+
+    /**
      * A basic feature test BookController get route.
      */
     public function testBook(): void
