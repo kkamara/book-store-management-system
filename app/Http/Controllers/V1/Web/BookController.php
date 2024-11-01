@@ -138,7 +138,7 @@ class BookController extends Controller
                 $request->input("category"),
                 FILTER_SANITIZE_STRING
             );
-            $books->leftJoin("book_categories", "book_categories.book_id", "=", "books.id")
+            $books = $books->leftJoin("book_categories", "book_categories.book_id", "=", "books.id")
                 ->leftJoin("categories", "book_categories.category_id", "=", "categories.id")
                 ->where(
                     "categories.name",
