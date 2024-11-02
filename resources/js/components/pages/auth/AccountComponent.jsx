@@ -4,13 +4,17 @@ import { useDispatch, useSelector, } from 'react-redux'
 import { Helmet, } from "react-helmet"
 import { register, authorize, } from '../../../redux/actions/authActions'
 
-import "./RegisterComponent.scss"
+import "./AccountComponent.scss"
 
-export default function RegisterComponent() {
+export default function AccountComponent() {
   const navigate = useNavigate()
-
+  const state = useSelector(state => ({
+    auth: state.auth,
+  }))
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
+  const [newPassword, setNewPassword] = useState("")
+  const [newPasswordConfirmation, setNewPasswordConfirmation] = useState("")
   const [password, setPassword] = useState("")
   const [passwordConfirmation, setPasswordConfirmation] = useState("")
 
@@ -18,12 +22,24 @@ export default function RegisterComponent() {
   const authState = useSelector(state => (state.auth))
 
   useEffect(() => {
-    if (localStorage.getItem("user-token")) {
-      return navigate("/")
-    } else if (authState.loading) {
-      dispatch(authorize())
+    dispatch(authorize())
+  }, [])
+
+  useEffect(() => {
+    if (
+      !state.auth.loading &&
+      null === state.auth.data
+    ) {
+      navigate("/user/login")
+    } else if (
+      !state.auth.loading &&
+      typeof state.auth.data === "object" &&
+      null !== state.auth.data
+    ) {
+      setName(state.auth.data.name)
+      setEmail(state.auth.data.email)
     }
-  }, [authState,])
+  }, [state.auth])
 
   const onFormSubmit = (e) => {
     e.preventDefault()
@@ -49,6 +65,14 @@ export default function RegisterComponent() {
     setEmail(e.target.value)
   }
 
+  const onChangePasswordChange = (e) => {
+    setNewPassword(e.target.value)
+  }
+
+  const onChangePasswordConfirmationChange = (e) => {
+    setNewPasswordConfirmation(e.target.value)
+  }
+
   const onPasswordChange = (e) => {
     setPassword(e.target.value)
   }
@@ -57,10 +81,18 @@ export default function RegisterComponent() {
     setPasswordConfirmation(e.target.value)
   }
 
-  if (authState.loading) {
-    return <div className='container register-container text-center'>
+  if (
+    !state.auth.loading &&
+    typeof state.auth.data === "object" &&
+    null !== state.auth.data
+  ) {
+    console.log("auth", state.auth.data)
+  }
+
+  if (state.auth.loading) {
+    return <div className='container login-container text-center'>
       <Helmet>
-          <title>Register | {import.meta.env.VITE_APP_NAME}</title>
+          <title>Account | {import.meta.env.VITE_APP_NAME}</title>
       </Helmet>
       <p>Loading...</p>
     </div>
@@ -68,13 +100,17 @@ export default function RegisterComponent() {
 
   return (
     <>
-      <div className='container register-container'>
+      <div className='container login-container'>
         <Helmet>
-            <title>Register | {import.meta.env.VITE_APP_NAME}</title>
+            <title>Account | {import.meta.env.VITE_APP_NAME}</title>
         </Helmet>
-        <div className="col-md-4 offset-md-4">
-          <h3 className="lead">Register</h3>
-          <form method="post" onSubmit={onFormSubmit}>
+        <div className="row">
+          <div className="col-md-4 offset-md-4">
+            <h3 className="lead">Account</h3>
+          </div>
+        </div>
+        <form className="row" onSubmit={onFormSubmit} method="post" >
+          <div className="col-md-4 offset-md-4">
             {authState.error ?
               <div className="alert alert-warning alert-dismissible fade show" role="alert">
                 {authState.error}
@@ -99,6 +135,26 @@ export default function RegisterComponent() {
               />
             </div>
             <div className="form-group">
+              <label htmlFor="password">Change Password</label>
+              <input 
+                type="password"
+                name="newPassword" 
+                className="form-control"
+                value={newPassword}
+                onChange={onChangePasswordChange}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Change Password Confirmation</label>
+              <input 
+                type="password"
+                name="newPasswordConfirmation" 
+                className="form-control"
+                value={newPasswordConfirmation}
+                onChange={onChangePasswordConfirmationChange}
+              />
+            </div>
+            <div className="form-group">
               <label htmlFor="password">Password</label>
               <input 
                 type="password"
@@ -118,18 +174,20 @@ export default function RegisterComponent() {
                 onChange={onPasswordConfirmationChange}
               />
             </div>
-            <a 
-              href="/user/login" 
-              className="btn btn-primary"
-            >
-              Login
-            </a>
-            <input 
-              type="submit" 
-              className="btn btn-success" 
-            />
-          </form>
-        </div>
+            <div className="form-group account-buttons-container">
+              <a 
+                href="/user/login" 
+                className="btn btn-primary login-button"
+              >
+                Login
+              </a>
+              <input 
+                type="submit" 
+                className="btn btn-success" 
+              />
+            </div>
+          </div>
+        </form>
       </div>
     </>       
   )

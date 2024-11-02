@@ -12,6 +12,7 @@ import Book from "./components/pages/book/BookComponent"
 import Orders from "./components/pages/orders/OrdersComponent"
 import Order from "./components/pages/order/OrderComponent"
 import SearchBooks from "./components/pages/books/SearchBooksComponent"
+import Account from "./components/pages/auth/AccountComponent"
 import NotFound from "./components/pages/http/NotFoundComponent"
 
 import { url } from './utils/config'
@@ -30,6 +31,7 @@ export default () => {
         <Route path={url("/user/login")} element={<Login />}/>
         <Route path={url("/user/logout")} element={<Logout />}/>
         <Route path={url("/user/register")} element={<Register />}/>
+        <Route path={url("/user/account")} element={<Account />}/>
       </Routes>
       <Footer/>
     </>
