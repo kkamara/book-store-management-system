@@ -53,6 +53,10 @@ Route::prefix('web')
             [BookController::class, 'editions'],
         );
         Route::get(
+            '/books/search/categories',
+            [BookController::class, 'categories'],
+        );
+        Route::get(
             '/orders/{referenceNumber}/products',
             [OrderBookController::class, 'index'],
         )->middleware("auth:sanctum");
