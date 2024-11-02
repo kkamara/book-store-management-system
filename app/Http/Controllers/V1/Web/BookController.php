@@ -153,6 +153,63 @@ class BookController extends Controller
         );
     }
 
+    public function editions() {
+        return [
+            [
+                "name" => BookEdition::BIBLIOGRAPHICAL->value,
+                "filterKey" => "selectBibliographicalEdition",
+            ],
+            [
+                "name" => BookEdition::COLLECTORS->value,
+                "filterKey" => "selectCollectorsEdition",],
+            [
+                "name" => BookEdition::PUBLISHER->value,
+                "filterKey" => "selectPublisherEdition",],
+            [
+                "name" => BookEdition::REVISED->value,
+                "filterKey" => "selectRevisedEdition",],
+            [
+                "name" => BookEdition::REVISED_UPDATED->value,
+                "filterKey" => "selectRevisedUpdatedEdition",],
+            [
+                "name" => BookEdition::CO_EDITION->value,
+                "filterKey" => "selectCoEditionEdition",
+            ],
+            [
+                "name" => BookEdition::E_DITION->value,
+                "filterKey" => "selectEditionEdition",
+            ],
+            [
+                "name" => BookEdition::LIBRARY->value,
+                "filterKey" => "selectLibraryEdition",
+            ],
+            [
+                "name" => BookEdition::BOOK->value,
+                "filterKey" => "selectBookEdition",
+            ],
+            [
+                "name" => BookEdition::CHEAP->value,
+                "filterKey" => "selectCheapEdition",
+            ],
+            [
+                "name" => BookEdition::COLONIAL->value,
+                "filterKey" => "selectColonialEdition",
+            ],
+            [
+                "name" => BookEdition::CADET->value,
+                "filterKey" => "selectCadetEdition",
+            ],
+            [
+                "name" => BookEdition::LARGE->value,
+                "filterKey" => "selectLargeEdition",
+            ],
+            [
+                "name" => BookEdition::CRITICAL->value,
+                "filterKey" => "selectCriticalEdition",
+            ],
+        ];
+    }
+
     public function get(Request $request, string $slug) {
         $book = Book::where("slug", $slug)->first();
         if (null === $book) {
