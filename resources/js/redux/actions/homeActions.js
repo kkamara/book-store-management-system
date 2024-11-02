@@ -5,7 +5,7 @@ import { home, } from '../types'
 export const getHome = page => {
   return async dispatch => {
     const http = new HttpService()
-        
+    
     dispatch({ type: home.GET_HOME_PENDING, })
 
     const tokenId = "user-token"

@@ -8,6 +8,7 @@ import orderReducer from './orderReducer'
 import orderBooksReducer from './orderBooksReducer'
 import editionsReducer from './editionsReducer'
 import categoriesReducer from './categoriesReducer'
+import searchBooksReducer from './searchBooksReducer'
 
 export default combineReducers({
   auth: authReducer,
@@ -19,4 +20,5 @@ export default combineReducers({
   orderBooks: orderBooksReducer,
   editions: editionsReducer,
   categories: categoriesReducer,
+  searchBooks: searchBooksReducer,
 })

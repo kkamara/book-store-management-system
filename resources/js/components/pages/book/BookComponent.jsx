@@ -168,14 +168,32 @@ export default function BookComponent() {
           alt={state.book.data.data.name}
           className="book-cover"
         />
-        <div className="col-md-12 book-detail">
-          <span className="book-cost">£{state.book.data.data.cost}</span> 
-          <button
-            className="btn btn-primary add-to-cart"
-            onClick={handleAddToCart}
-          >
-            Add to cart
-          </button>
+        <span className="card-span categories-span">
+          Categories: 
+          {state.book.data.data.categories.map((category, index) => {
+            if ((index + 1) === state.book.data.data.categories.length) {
+              return category.name
+            } else {
+              return category.name+", "
+            }
+          })}
+        </span>
+        <div className="row">
+          <div className="col-md-4 offset-md-4 book-detail">
+            <div className="book-detail-info">
+              <span className="card-span">Publisher: {state.book.data.data.publisher}</span>
+              <span className="card-span">Published {state.book.data.data.published}</span>
+              <span className="card-span">Binding: {state.book.data.data.binding}</span>
+              <span className="card-span">Edition: {state.book.data.data.edition}</span>
+            </div>
+            <span className="book-cost">£{state.book.data.data.cost}</span> 
+            <button
+              className="btn btn-primary add-to-cart"
+              onClick={handleAddToCart}
+            >
+              Add to cart
+            </button>
+          </div>
         </div>
         <div className="col-md-12 reviews-container">
           <p className="d-inline-flex gap-1">

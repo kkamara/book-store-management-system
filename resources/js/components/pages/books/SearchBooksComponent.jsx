@@ -7,14 +7,14 @@ import { FontAwesomeIcon, } from "@fortawesome/react-fontawesome"
 import { faX, } from "@fortawesome/free-solid-svg-icons"
 import { getEditions, } from '../../../redux/actions/editionsActions'
 import { getCategories, } from '../../../redux/actions/categoriesActions'
-import { getHome, } from '../../../redux/actions/homeActions'
+import { getSearchBooks, } from '../../../redux/actions/searchBooksActions'
 
 import "./SearchBooksComponent.scss"
 
 export default function SearchBooksComponent() {
   const dispatch = useDispatch()
   const state = useSelector(state => ({
-    home: state.home,
+    searchBooks: state.searchBooks,
     editions: state.editions,
     categories: state.categories,
   }))
@@ -27,7 +27,7 @@ export default function SearchBooksComponent() {
   const [orderById, setOrderById] = useState("desc")
 
   useEffect(() => {
-    dispatch(getHome())
+    dispatch(getSearchBooks())
     dispatch(getEditions())
     dispatch(getCategories())
   }, [])
@@ -54,27 +54,45 @@ export default function SearchBooksComponent() {
 
   const handlePageChange = ({ selected, }) => {
     const newPage = selected + 1
-    if (newPage > state.home.data.meta.lastPage) {
+    if (newPage > state.searchBooks.data.meta.lastPage) {
       return
     }
-    dispatch(getHome(newPage))
+    const params = { orderById, }
+    if (edition) {
+      params.edition = edition
+    }
+    if (category) {
+      params.category = category
+    }
+    if (query) {
+      params.query = query
+    }
+    dispatch(getSearchBooks(newPage, params))
+    setPage(newPage)
   }
 
   const handleClearSearchInput = () => {
-    if (0 === query.length) {
-      return
-    }
     setQuery("")
+    setEdition(null)
+    setCategory(null)
+    setOrderById("desc")
     setPage(1)
-    dispatch(getOrders(1, ""))
+    dispatch(getSearchBooks(1))
   }
 
   const handleSearchFormSubmit = e => {
     e.preventDefault()
-    if (0 === query.length) {
-      return
+    const params = { orderById, }
+    if (edition) {
+      params.edition = edition
     }
-    dispatch(getOrders(1, query))
+    if (category) {
+      params.category = category
+    }
+    if (query) {
+      params.query = query
+    }
+    dispatch(getSearchBooks(1, params))
     setPage(1)
   }
 
@@ -97,7 +115,7 @@ export default function SearchBooksComponent() {
   const parseDate = date => moment(date).format('YYYY-MM-DD hh:mm')
 
   const pagination = () => {
-    if (!state.home.data) {
+    if (!state.searchBooks.data) {
         return null
     }
 
@@ -115,34 +133,34 @@ export default function SearchBooksComponent() {
         breakLabel="..."
         breakClassName="page-item"
         breakLinkClassName="page-link"
-        pageCount={state.home.data.meta.lastPage}
+        pageCount={state.searchBooks.data.meta.lastPage}
         marginPagesDisplayed={2}
         pageRangeDisplayed={5}
         containerClassName="pagination"
         activeClassName="active"
-        forcePage={state.home.data.meta.currentPage - 1}
+        forcePage={state.searchBooks.data.meta.currentPage - 1}
       />
     </div>
   }
 
   const paginationDetail = () => {
     return <>
-      <strong>page</strong> ({state.home.data.meta.currentPage}),
-      &nbsp;<strong>page count</strong> ({state.home.data.meta.lastPage}),
-      &nbsp;<strong>displayed items</strong> ({state.home.data.data.length}),
-      &nbsp;<strong>items</strong> ({state.home.data.meta.total})
+      <strong>page</strong> ({state.searchBooks.data.meta.currentPage}),
+      &nbsp;<strong>page count</strong> ({state.searchBooks.data.meta.lastPage}),
+      &nbsp;<strong>displayed items</strong> ({state.searchBooks.data.data.length}),
+      &nbsp;<strong>items</strong> ({state.searchBooks.data.meta.total})
     </>
   }
 
   const renderList = () => {
-    if (!state.home.data) {
+    if (!state.searchBooks.data) {
       return null
     }
     return (
       <>
         {paginationDetail()}
         <div className="col-md-12">
-          {state.home.data.data.map((book, index) => (
+          {state.searchBooks.data.data.map((book, index) => (
             <div key={index} className="card search-books-card">
               <a href={`/books/${book.slug}`}>
                 <img src={book.jpgImageURL} className="card-img-top" alt="..." />
@@ -153,6 +171,8 @@ export default function SearchBooksComponent() {
                   <span className="card-span">Publisher: {book.publisher}</span>
                   <span className="card-span">Published {book.published}</span>
                   <span className="card-span book-cost">£{book.cost}</span>
+                  <span className="card-span">Binding: {book.binding}</span>
+                  <span className="card-span">Edition: {book.edition}</span>
                   <span className="card-span categories-span">
                     Categories: 
                     {book.categories.map((category, index) => {
@@ -177,11 +197,11 @@ export default function SearchBooksComponent() {
   }
 
   if (
-    !state.home.loading &&
-    typeof state.home.data === 'object' &&
-    null !== state.home.data
+    !state.searchBooks.loading &&
+    typeof state.searchBooks.data === 'object' &&
+    null !== state.searchBooks.data
   ) {
-    console.log('home', state.home.data)
+    console.log('searchBooks', state.searchBooks.data)
   }
   if (
     !state.editions.loading &&
@@ -198,7 +218,7 @@ export default function SearchBooksComponent() {
     console.log('categories', state.categories.data)
   }
   if (
-    state.home.loading ||
+    state.searchBooks.loading ||
     state.editions.loading ||
     state.categories.loading
   ) {
@@ -239,6 +259,7 @@ export default function SearchBooksComponent() {
                 value={edition}
                 onChange={handleEditionChange}
               >
+                <option value=""></option>
                 {editions && editions.map((edition, index) => (
                   <option
                     key={index}
@@ -260,6 +281,7 @@ export default function SearchBooksComponent() {
                 value={category}
                 onChange={handleCategoryChange}
               >
+                <option value=""></option>
                 {categories && categories.map((category, index) => (
                   <option
                     key={index}

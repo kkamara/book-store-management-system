@@ -84,6 +84,18 @@ export default function HomeComponent() {
                   <span className="card-span">Publisher: {book.publisher}</span>
                   <span className="card-span">Published {book.published}</span>
                   <span className="card-span book-cost">£{book.cost}</span>
+                  <span className="card-span">Binding: {book.binding}</span>
+                  <span className="card-span">Edition: {book.edition}</span>
+                  <span className="card-span categories-span">
+                    Categories: 
+                    {book.categories.map((category, index) => {
+                      if ((index + 1) === book.categories.length) {
+                        return category.name
+                      } else {
+                        return category.name+", "
+                      }
+                    })}
+                  </span>
                 </p>
                 <a href={`/books/${book.slug}`} className="btn btn-primary">
                   View Book

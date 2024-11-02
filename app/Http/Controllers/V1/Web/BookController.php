@@ -216,7 +216,9 @@ class BookController extends Controller
 
     public function categories() {
         return new CategoryCollection(
-            Category::distinct()->get()
+            Category::distinct()
+                ->orderBy("name", "ASC")
+                ->get()
         );
     }
 
