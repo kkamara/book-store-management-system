@@ -1,0 +1,51 @@
+.search-books-card {
+    width: 18rem;
+    display: inline-block !important;
+    margin: 10px;
+}
+
+.search-books-card .card-text {
+    font-size: 12px;
+}
+
+.card-span {
+    display: block;
+}
+
+.book-cost {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.search-books-pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.search-book-card-title {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.search-books-form {
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 1px 1px 1px gray;
+    text-align: left;
+}
+
+.search-orders-button-container {
+    margin-top: 30px;
+}
+
+.categories-span {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+}

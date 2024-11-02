@@ -103,7 +103,7 @@ export default function Header(props) {
             <Link className="nav-link active" aria-current="page" to="/">Home</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link active" aria-current="page" to="/">Search Books</Link>
+            <Link className="nav-link active" aria-current="page" to="/books/search">Search Books</Link>
           </li>
         </ul>
         <ul className="navbar-nav">
