@@ -6,6 +6,8 @@ import reviewsReducer from './reviewsReducer'
 import ordersReducer from './ordersReducer'
 import orderReducer from './orderReducer'
 import orderBooksReducer from './orderBooksReducer'
+import editionsReducer from './editionsReducer'
+import categoriesReducer from './categoriesReducer'
 
 export default combineReducers({
   auth: authReducer,
@@ -15,4 +17,6 @@ export default combineReducers({
   orders: ordersReducer,
   order: orderReducer,
   orderBooks: orderBooksReducer,
+  editions: editionsReducer,
+  categories: categoriesReducer,
 })

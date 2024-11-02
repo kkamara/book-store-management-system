@@ -5,6 +5,8 @@ import moment from 'moment'
 import { Helmet, } from "react-helmet"
 import { FontAwesomeIcon, } from "@fortawesome/react-fontawesome"
 import { faX, } from "@fortawesome/free-solid-svg-icons"
+import { getEditions, } from '../../../redux/actions/editionsActions'
+import { getCategories, } from '../../../redux/actions/categoriesActions'
 import { getHome, } from '../../../redux/actions/homeActions'
 
 import "./SearchBooksComponent.scss"
@@ -13,13 +15,42 @@ export default function SearchBooksComponent() {
   const dispatch = useDispatch()
   const state = useSelector(state => ({
     home: state.home,
+    editions: state.editions,
+    categories: state.categories,
   }))
   const [query, setQuery] = useState("")
   const [page, setPage] = useState(1)
+  const [editions, setEditions] = useState(null)
+  const [categories, setCategories] = useState(null)
+  const [edition, setEdition] = useState(null)
+  const [category, setCategory] = useState(null)
+  const [orderById, setOrderById] = useState("desc")
 
   useEffect(() => {
     dispatch(getHome())
+    dispatch(getEditions())
+    dispatch(getCategories())
   }, [])
+
+  useEffect(() => {
+    if (
+      !state.editions.loading &&
+      typeof state.editions.data === 'object' &&
+      null !== state.editions.data
+    ) {
+      setEditions(state.editions.data.data)
+    }
+  }, [state.editions])
+
+  useEffect(() => {
+    if (
+      !state.categories.loading &&
+      typeof state.categories.data === 'object' &&
+      null !== state.categories.data
+    ) {
+      setCategories(state.categories.data.data)
+    }
+  }, [state.categories])
 
   const handlePageChange = ({ selected, }) => {
     const newPage = selected + 1
@@ -49,6 +80,18 @@ export default function SearchBooksComponent() {
 
   const handleQueryChange = e => {
     setQuery(e.target.value)
+  }
+
+  const handleEditionChange = e => {
+    setEdition(e.target.value)
+  }
+
+  const handleCategoryChange = e => {
+    setCategory(e.target.value)
+  }
+
+  const handleOrderByIdChange = e => {
+    setOrderById(e.target.value)
   }
 
   const parseDate = date => moment(date).format('YYYY-MM-DD hh:mm')
@@ -140,7 +183,25 @@ export default function SearchBooksComponent() {
   ) {
     console.log('home', state.home.data)
   }
-  if (state.home.loading) {
+  if (
+    !state.editions.loading &&
+    typeof state.editions.data === 'object' &&
+    null !== state.editions.data
+  ) {
+    console.log('editions', state.editions.data)
+  }
+  if (
+    !state.categories.loading &&
+    typeof state.categories.data === 'object' &&
+    null !== state.categories.data
+  ) {
+    console.log('categories', state.categories.data)
+  }
+  if (
+    state.home.loading ||
+    state.editions.loading ||
+    state.categories.loading
+  ) {
     return <div className="container search-books-container text-center">
       <Helmet>
           <title>Search Books | {import.meta.env.VITE_APP_NAME}</title>
@@ -173,10 +234,19 @@ export default function SearchBooksComponent() {
               <label htmlFor="edition">Select edition:</label>
               <select
                 name="edition"
-                id=""
+                id="edition"
                 className="form-control"
+                value={edition}
+                onChange={handleEditionChange}
               >
-                <option value="test">Test</option>
+                {editions && editions.map((edition, index) => (
+                  <option
+                    key={index}
+                    value={edition.filterKey}
+                  >
+                    {edition.name}
+                  </option>
+                ))}
               </select>
             </div>          
           </div>
@@ -185,10 +255,19 @@ export default function SearchBooksComponent() {
               <label htmlFor="category">Select category:</label>
               <select
                 name="category"
-                id=""
+                id="category"
                 className="form-control"
+                value={category}
+                onChange={handleCategoryChange}
               >
-                <option value="test">Test</option>
+                {categories && categories.map((category, index) => (
+                  <option
+                    key={index}
+                    value={category.name}
+                  >
+                    {category.name}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="form-group">
@@ -197,6 +276,8 @@ export default function SearchBooksComponent() {
                 name="orderById"
                 id="orderById"
                 className="form-control"
+                value={orderById}
+                onChange={handleOrderByIdChange}
               >
                 <option value="desc">ID descending</option>
                 <option value="asc">ID ascending</option>
