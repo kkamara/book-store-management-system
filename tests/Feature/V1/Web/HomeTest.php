@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\V1\API;
+namespace Tests\Feature\V1\Web;
 
 use App\Models\V1\Book;
 use Illuminate\Foundation\Testing\RefreshDatabaseState;
