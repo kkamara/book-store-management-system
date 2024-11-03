@@ -23,6 +23,10 @@ Route::prefix('web')
                 '/authorize',
                 [WebUserController::class, 'authorizeUser'],
             )->middleware("auth:sanctum");
+            Route::patch(
+                '/account',
+                [WebUserController::class, 'account'],
+            )->middleware("auth:sanctum");
         });
         Route::get(
             '/users',

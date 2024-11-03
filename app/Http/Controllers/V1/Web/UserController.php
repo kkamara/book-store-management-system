@@ -95,4 +95,34 @@ class UserController extends Controller
 
         return new UserCollection($data);
     }
+
+    public function account(Request $request) {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                "name" => ["sometimes", "required"],
+                "email" => ["sometimes", "required"],
+                "change_password" => ["sometimes", "required", "confirmed"],
+                "password" => ["required", "confirmed", "current_password"],
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), Response::HTTP_BAD_REQUEST);
+        }
+        $newUserFields = [];
+        if ($request->input("name")) {
+            $newUserFields["name"] = filter_var($request->input("name"), FILTER_SANITIZE_STRING);
+        }
+        if ($request->input("email")) {
+            $newUserFields["email"] = filter_var($request->input("email"), FILTER_SANITIZE_STRING);
+        }
+        if ($request->input("changePassword")) {
+            $newUserFields["password"] = Hash::make($request->input("changePassword"));
+        }
+        if (isset($newUserFields)) {
+            auth()->user()->update($newUserFields);
+        }
+        $user = auth()->user();
+        return new UserResource($user);
+    }
 }
