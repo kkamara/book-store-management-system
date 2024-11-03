@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('order_books', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("order_id");
+            $table->integer("quantity")->default(1);
             $table->string("isbn_13")
                 ->index()
                 ->nullable();

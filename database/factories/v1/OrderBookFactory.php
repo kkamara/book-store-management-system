@@ -30,6 +30,7 @@ class OrderBookFactory extends Factory
         }
         return [
             "order_id" => $order->id,
+            "quantity" => mt_rand(1, 5),
             "isbn_13" => $book->isbn_13,
             "isbn_10" => $book->isbn_10,
             "slug" => $book->slug,

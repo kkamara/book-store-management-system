@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("book_id");
             $table->unsignedBigInteger(column: "user_id");
+            $table->integer("quantity")->default(1);
             $table->timestamps();
 
             $table->foreign("book_id")

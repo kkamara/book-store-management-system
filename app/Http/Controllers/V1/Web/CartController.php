@@ -30,9 +30,10 @@ class CartController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                "cart" => ["sometimes", "required", "array"],
-                "cart.*" => ["array"],
-                "cart.*.bookId" => ["sometimes", "required", "numeric", "exists:books,id"],
+                "cart" => ["sometimes", "required", "array",],
+                "cart.*" => ["array",],
+                "cart.*.bookId" => ["sometimes", "required", "numeric", "exists:books,id",],
+                "cart.*.quantity" => ["sometimes", "required", "numeric",],
             ]
         );
         if ($validator->fails()) {
@@ -40,10 +41,30 @@ class CartController extends Controller
         }
         $user = auth()->user();
         $newCart = [];
+        $bookIds = [];
         if (null !== $request->input("cart")) {
             foreach ($request->input("cart") as $key => $cart) {
+                if (!isset($cart["bookId"])) {
+                    $field = "cart.".$key.".bookId";
+                    return response()->json([
+                        $field => "The ".$field." field is missing.",
+                    ], status: Response::HTTP_BAD_REQUEST);
+                } else if (in_array($cart["bookId"], $bookIds)) {
+                    $field = "cart.".$key.".bookId";
+                    return response()->json([
+                        $field => "The ".$field." field appears more than once in your payload.",
+                    ], Response::HTTP_BAD_REQUEST);
+                }
+                if (!isset($cart["quantity"])) {
+                    $field = "cart.".$key.".quantity";
+                    return response()->json([
+                        $field => "The ".$field." field is missing.",
+                    ], Response::HTTP_BAD_REQUEST);
+                }
                 $newCart[$key]["book_id"] = $cart["bookId"];
                 $newCart[$key]["user_id"] = $user->id;
+                $newCart[$key]["quantity"] = $cart["quantity"];
+                array_push($bookIds, $cart["bookId"]);
             }
         }
         $user->carts()->delete();

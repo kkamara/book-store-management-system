@@ -21,6 +21,7 @@ class CartFactory extends Factory
         return [
             "book_id" => Book::inRandomOrder()->firstOrFail()->id,
             "user_id" => User::inRandomOrder()->firstOrFail()->id,
+            "quantity" => mt_rand(1, 5),
         ];
     }
 }

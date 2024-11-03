@@ -19,6 +19,7 @@ class OrderBook extends Model
      */
     protected $fillable = [
         "order_id",
+        "quantity",
         "isbn_13", // 9780545162074
         "isbn_10", // 0545162076
         "slug",

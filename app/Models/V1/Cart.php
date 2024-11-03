@@ -18,6 +18,7 @@ class Cart extends Model
     protected $fillable = [
         "book_id",
         "user_id",
+        "quantity",
     ];
 
     public function user(): BelongsTo {

@@ -83,12 +83,14 @@ class CartTest extends TestCase
         $cart = Cart::factory()
             ->create(["user_id" => $user->id]);
         $book = Book::inRandomOrder()->firstOrFail();
+        $quantity = mt_rand(1, 5);
         $response = $this->postJson(
             "/api/web/cart/update",
             [
                 "cart" => [
                     [
                         "bookId" => $book->id,
+                        "quantity" => $quantity,
                     ],
                 ],
             ],
@@ -99,6 +101,46 @@ class CartTest extends TestCase
         )
             ->assertJsonFragment([
                 "name" => $book->name,
+            ])
+            ->assertJsonFragment(compact("quantity"));
+    }
+
+    /**
+     * A basic feature test example for Cart update route duplicate add items.
+     */
+    public function testCartDuplicateUpdateAddItems(): void
+    {
+        $this->seed();
+        $email = "jane@doe.com";
+        $user = User::where(compact("email"))->firstOrFail();
+        Sanctum::actingAs(
+            $user,
+        );
+        $cart = Cart::factory()
+            ->create(["user_id" => $user->id]);
+        $book = Book::inRandomOrder()->firstOrFail();
+        $quantity = mt_rand(1, 5);
+        $response = $this->postJson(
+            "/api/web/cart/update",
+            [
+                "cart" => [
+                    [
+                        "bookId" => $book->id,
+                        "quantity" => $quantity,
+                    ],
+                    [
+                        "bookId" => $book->id,
+                        "quantity" => $quantity,
+                    ],
+                ],
+            ],
+        );
+        
+        $response->assertJson(fn (AssertableJson $json) =>
+            $json->has("cart.1.bookId")->etc()
+        )
+            ->assertJsonFragment([
+                "cart.1.bookId" => "The cart.1.bookId field appears more than once in your payload.",
             ]);
     }
 
