@@ -116,8 +116,8 @@ class UserController extends Controller
         if ($request->input("email")) {
             $newUserFields["email"] = filter_var($request->input("email"), FILTER_SANITIZE_STRING);
         }
-        if ($request->input("changePassword")) {
-            $newUserFields["password"] = Hash::make($request->input("changePassword"));
+        if ($request->input("change_password")) {
+            $newUserFields["password"] = Hash::make($request->input("change_password"));
         }
         if (isset($newUserFields)) {
             auth()->user()->update($newUserFields);

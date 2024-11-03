@@ -2,7 +2,8 @@ import React, { useEffect, useState, } from 'react'
 import { useNavigate, } from 'react-router-dom'
 import { useDispatch, useSelector, } from 'react-redux'
 import { Helmet, } from "react-helmet"
-import { register, authorize, } from '../../../redux/actions/authActions'
+import { authorize, } from '../../../redux/actions/authActions'
+import { update, } from '../../../redux/actions/updateAccountActions'
 
 import "./AccountComponent.scss"
 
@@ -10,6 +11,7 @@ export default function AccountComponent() {
   const navigate = useNavigate()
   const state = useSelector(state => ({
     auth: state.auth,
+    updateAccount: state.updateAccount,
   }))
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
@@ -19,7 +21,6 @@ export default function AccountComponent() {
   const [passwordConfirmation, setPasswordConfirmation] = useState("")
 
   const dispatch = useDispatch()
-  const authState = useSelector(state => (state.auth))
 
   useEffect(() => {
     dispatch(authorize())
@@ -34,27 +35,45 @@ export default function AccountComponent() {
     } else if (
       !state.auth.loading &&
       typeof state.auth.data === "object" &&
-      null !== state.auth.data
+      null !== state.auth.data &&
+      !state.auth.error
     ) {
       setName(state.auth.data.name)
       setEmail(state.auth.data.email)
+      setPassword("")
+      setPasswordConfirmation("")
+      setNewPassword("")
+      setNewPasswordConfirmation("")
     }
   }, [state.auth])
+
+  useEffect(() => {
+    if (
+      !state.updateAccount.loading &&
+      typeof state.updateAccount.data === "object" &&
+      null !== state.updateAccount.data &&
+      !state.updateAccount.error
+    ) {
+      setName(state.updateAccount.data.name)
+      setEmail(state.updateAccount.data.email)
+      setPassword("")
+      setPasswordConfirmation("")
+      setNewPassword("")
+      setNewPasswordConfirmation("")
+    }
+  }, [state.updateAccount])
 
   const onFormSubmit = (e) => {
     e.preventDefault()
 
-    dispatch(register({
+    dispatch(update({
+      change_password: newPassword,
+      change_password_confirmation: newPasswordConfirmation,
       password_confirmation: passwordConfirmation,
       name,
       email,
-      password
+      password,
     }))
-
-    setName("")
-    setEmail("")
-    setPassword("")
-    setPasswordConfirmation("")
   }
 
   const onNameChange = (e) => {
@@ -89,7 +108,15 @@ export default function AccountComponent() {
     console.log("auth", state.auth.data)
   }
 
-  if (state.auth.loading) {
+  if (
+    !state.updateAccount.loading &&
+    typeof state.updateAccount.data === "object" &&
+    null !== state.updateAccount.data
+  ) {
+    console.log("updateAccount", state.updateAccount.data)
+  }
+
+  if (state.auth.loading || state.updateAccount.loading) {
     return <div className='container login-container text-center'>
       <Helmet>
           <title>Account | {import.meta.env.VITE_APP_NAME}</title>
@@ -111,9 +138,9 @@ export default function AccountComponent() {
         </div>
         <form className="row" onSubmit={onFormSubmit} method="post" >
           <div className="col-md-4 offset-md-4">
-            {authState.error ?
+            {state.updateAccount.error ?
               <div className="alert alert-warning alert-dismissible fade show" role="alert">
-                {authState.error}
+                {state.updateAccount.error}
                 <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div> : null}
             <div className="form-group">

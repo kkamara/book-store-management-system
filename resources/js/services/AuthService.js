@@ -1,5 +1,19 @@
 import HttpService from './HttpService'
 
+export const UpdateUserService = (data) => {
+  const http = new HttpService()
+  const tokenId = "user-token"
+  return new Promise((resolve, reject) => {
+    http.getData('sanctum/csrf-cookie').then(
+      () => http.patchData('/user/account', data, tokenId)
+      .then((response) => {
+        return resolve(response.data.data)
+      })
+      .catch(err => reject(err))
+    ).catch(err => err)
+  })
+}
+
 export const RegisterUserService = (data) => {
   const http = new HttpService()
   const tokenId = "user-token"
