@@ -67,12 +67,12 @@ export default function AccountComponent() {
     e.preventDefault()
 
     dispatch(update({
-      change_password: newPassword,
-      change_password_confirmation: newPasswordConfirmation,
-      password_confirmation: passwordConfirmation,
+      changePassword: newPassword,
+      changePasswordConfirmation: newPasswordConfirmation,
       name,
       email,
       password,
+      passwordConfirmation,
     }))
   }
 

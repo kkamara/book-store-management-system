@@ -17,14 +17,14 @@ export const update = data => {
     if (data.password) {
       payload.password = data.password
     }
-    if (data.password_confirmation) {
-      payload.password_confirmation = data.password_confirmation
+    if (data.passwordConfirmation) {
+      payload.passwordConfirmation = data.passwordConfirmation
     }
-    if (data.change_password) {
-      payload.change_password = data.change_password
+    if (data.changePassword) {
+      payload.changePassword = data.changePassword
     }
-    if (data.change_password_confirmation) {
-      payload.change_password_confirmation = data.change_password_confirmation
+    if (data.changePasswordConfirmation) {
+      payload.changePasswordConfirmation = data.changePasswordConfirmation
     }
 
     UpdateUserService(payload).then(res => {
