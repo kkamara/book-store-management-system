@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\V1\Web\BookController;
+use App\Http\Controllers\V1\Web\CartController;
 use App\Http\Controllers\V1\Web\HomeController;
 use App\Http\Controllers\V1\Web\OrderBookController;
 use App\Http\Controllers\V1\Web\OrderController;
@@ -39,6 +40,10 @@ Route::prefix('web')
         Route::get(
             '/orders',
             [OrderController::class, 'index'],
+        )->middleware("auth:sanctum");
+        Route::get(
+            '/cart',
+            [CartController::class, 'index'],
         )->middleware("auth:sanctum");
         Route::get(
             '/books/search',
