@@ -202,12 +202,6 @@ export default function AccountComponent() {
               />
             </div>
             <div className="form-group account-buttons-container">
-              <a 
-                href="/user/login" 
-                className="btn btn-primary login-button"
-              >
-                Login
-              </a>
               <input 
                 type="submit" 
                 className="btn btn-success" 
