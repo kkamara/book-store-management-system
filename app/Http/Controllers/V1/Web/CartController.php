@@ -30,7 +30,8 @@ class CartController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                "cart" => ["sometimes", "required"],
+                "cart" => ["sometimes", "required", "array"],
+                "cart.*" => ["array"],
                 "cart.*.bookId" => ["sometimes", "required", "numeric", "exists:books,id"],
             ]
         );
