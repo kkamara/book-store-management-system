@@ -54,7 +54,7 @@ class UserTest extends TestCase
             [
                 "name" => $newName,
                 "password" => "secret",
-                "password_confirmation" => "secret",
+                "passwordConfirmation" => "secret",
             ],
         );
 
