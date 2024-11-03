@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\CartCollection;
 use App\Models\V1\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response;
 
 class CartController extends Controller
 {
@@ -21,50 +23,33 @@ class CartController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Cart $cart)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Cart $cart)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Cart $cart)
+    public function update(Request $request)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Cart $cart)
-    {
-        //
+        $validator = Validator::make(
+            $request->all(),
+            [
+                "cart" => ["sometimes", "required"],
+                "cart.*.bookId" => ["sometimes", "required", "numeric", "exists:books,id"],
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), Response::HTTP_BAD_REQUEST);
+        }
+        $user = auth()->user();
+        $newCart = [];
+        if (null !== $request->input("cart")) {
+            foreach ($request->input("cart") as $key => $cart) {
+                $newCart[$key]["book_id"] = $cart["bookId"];
+                $newCart[$key]["user_id"] = $user->id;
+            }
+        }
+        $user->carts()->delete();
+        if (isset($newCart)) {
+            $user->carts()->insert($newCart);
+        }
+        $cart = $user->carts()->get();
+        return new CartCollection($cart);
     }
 }

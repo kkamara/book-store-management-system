@@ -45,6 +45,10 @@ Route::prefix('web')
             '/cart',
             [CartController::class, 'index'],
         )->middleware("auth:sanctum");
+        Route::post(
+            '/cart/update',
+            [CartController::class, 'update'],
+        )->middleware("auth:sanctum");
         Route::get(
             '/books/search',
             [BookController::class, 'search'],
