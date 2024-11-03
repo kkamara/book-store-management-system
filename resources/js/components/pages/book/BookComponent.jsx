@@ -57,7 +57,7 @@ export default function BookComponent() {
       !state.auth.loading &&
       null === state.auth.data
     ) {
-      // Add to cache cart
+      alert("Please login or register to add to cart.")
     } else {
       // Add to user cart
     }
