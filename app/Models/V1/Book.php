@@ -75,6 +75,10 @@ class Book extends Model
         return $this->belongsToMany(Category::class, "book_categories");
     }
 
+    public function carts(): HasMany {
+        return $this->hasMany(Cart::class);
+    }
+
     public function getFormattedCostAttribute() {
         return number_format(
             $this->cost / 100,
