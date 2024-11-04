@@ -11,7 +11,7 @@ import { getOrders, } from '../../../redux/actions/ordersActions'
 
 import "./OrdersComponent.scss"
 
-export default function HomeComponent() {
+export default function OrdersComponent() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const state = useSelector(state => ({
