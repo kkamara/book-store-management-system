@@ -196,6 +196,44 @@ class CartTest extends TestCase
     }
 
     /**
+     * A basic feature test example for Cart addToCart route adds quantity.
+     */
+    public function testCartAddToCartAddsQuantity(): void
+    {
+        $this->seed();
+        $email = "jane@doe.com";
+        $user = User::where(compact("email"))->firstOrFail();
+        Sanctum::actingAs(
+            $user,
+        );
+        $book = Book::inRandomOrder()->firstOrFail();
+        $cart = Cart::factory()
+            ->create([
+                "user_id" => $user->id,
+                "book_id" => $book->id,
+                "quantity" => 1,
+            ]);
+        $response = $this->postJson(
+            "/api/web/cart",
+            [
+                "cart" => [
+                    "bookId" => $book->id,
+                ],
+            ],
+        );
+        
+        $response->assertJson(fn (AssertableJson $json) =>
+            $json->has("data")
+        )
+            ->assertJsonFragment([
+                "name" => $book->name,
+            ])
+            ->assertJsonFragment([
+                "quantity" => 2,
+            ]);
+    }
+
+    /**
      * A basic feature test example for Cart removeFromCart route.
      */
     public function testCartRemoveFromCart(): void
@@ -211,6 +249,7 @@ class CartTest extends TestCase
             ->create([
                 "user_id" => $user->id,
                 "book_id" => $book->id,
+                "quantity" => 1,
             ]);
         $response = $this->postJson(
             "/api/web/cart/remove",

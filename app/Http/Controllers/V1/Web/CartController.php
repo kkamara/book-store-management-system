@@ -94,7 +94,6 @@ class CartController extends Controller
             $newCart["book_id"] = $request->input("cart")["bookId"];
             $newCart["user_id"] = $user->id;
         }
-        $user->carts()->delete();
         $quantityAdded = false;
         foreach($user->carts()->get() as $key => $cart) {
             if ($cart->book_id === $newCart["book_id"]) {
@@ -129,7 +128,6 @@ class CartController extends Controller
             $newCart["book_id"] = $request->input("cart")["bookId"];
             $newCart["user_id"] = $user->id;
         }
-        $user->carts()->delete();
         foreach($user->carts()->get() as $key => $cart) {
             if ($cart->book_id === $newCart["book_id"]) {
                 if (($cart->quantity - 1) < 1) {
