@@ -1,20 +1,40 @@
-import React, { useEffect, } from 'react'
+import React, { useEffect, useState, } from 'react'
 import { useDispatch, useSelector, } from 'react-redux'
 import { Link, } from 'react-router-dom'
 import { authorize, } from "../../redux/actions/authActions"
+import { getCart, } from "../../redux/actions/cartActions"
 
 import "./Header.scss"
 
 export default function Header(props) {  
-  const authResponse = useSelector(state=>state.auth)
+  const state = useSelector(state => ({
+    auth: state.auth,
+    cart: state.cart,
+  }))
   const dispatch = useDispatch()
+  const [cartCount, setCartCount] = useState(0)
+
+  useEffect(() => {
+    if (
+      !state.cart.loading &&
+      typeof state.cart.data === "object" &&
+      null !== state.cart.data
+    ) {
+      const quantity = state.cart.data.data.reduce((acc, curr) => acc + curr.quantity, 0)
+      setCartCount(quantity)
+    }
+  })
+
+  useEffect(() => {
+    dispatch(getCart())
+  }, state.cart)
 
   useEffect(() => {
     dispatch(authorize())
-  }, [authResponse.auth])
+  }, state.auth)
 
   const renderNavLinks = () => {
-    if(authResponse.data) {
+    if(state.auth.data) {
       return <>
         <li className="nav-item dropdown">
           <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -53,7 +73,7 @@ export default function Header(props) {
             aria-current="page" 
             to="/"
           >
-            Cart (0)
+            Cart ({cartCount})
           </Link>
         </li>
       </>
@@ -91,6 +111,14 @@ export default function Header(props) {
   }
   // VITE_TEST
   console.log(import.meta.env)
+  
+  if (
+    !state.cart.loading &&
+    typeof state.cart.data === "object" &&
+    null !== state.cart.data
+  ) {
+    console.log("cart", state.cart.data)
+  }
   return <nav className="container navbar navbar-expand-lg bg-body-tertiary">
     <div className="container-fluid">
       <Link className="navbar-brand" to="/">Book Store Management System</Link>

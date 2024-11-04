@@ -10,6 +10,7 @@ import editionsReducer from './editionsReducer'
 import categoriesReducer from './categoriesReducer'
 import searchBooksReducer from './searchBooksReducer'
 import updateAccountReducer from './updateAccountReducer'
+import cartReducer from './cartReducer'
 
 export default combineReducers({
   auth: authReducer,
@@ -23,4 +24,5 @@ export default combineReducers({
   categories: categoriesReducer,
   searchBooks: searchBooksReducer,
   updateAccount: updateAccountReducer,
+  cart: cartReducer,
 })
