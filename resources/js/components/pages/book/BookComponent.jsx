@@ -59,7 +59,10 @@ export default function BookComponent() {
       null === state.auth.data
     ) {
       alert("Please login or register to add to cart.")
-    } else {
+    } else if (
+      !state.auth.loading &&
+      null !== state.auth.data
+    ) {
       dispatch(addToCart(state.book.data.data.id))
     }
   }
