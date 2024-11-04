@@ -31,7 +31,6 @@ class CartController extends Controller
             $request->all(),
             [
                 "cart" => ["sometimes", "required", "array",],
-                "cart.*" => ["array",],
                 "cart.*.bookId" => ["sometimes", "required", "numeric", "exists:books,id",],
                 "cart.*.quantity" => ["sometimes", "required", "numeric",],
             ]
