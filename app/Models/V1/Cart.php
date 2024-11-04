@@ -28,4 +28,13 @@ class Cart extends Model
     public function book(): BelongsTo {
         return $this->belongsTo(Book::class);
     }
+
+    public function getCostAttribute() {
+        $cost = $this->book->cost;
+        $cost *= $this->quantity;
+        return number_format(
+            $cost / 100,
+            2,
+        );
+    }
 }

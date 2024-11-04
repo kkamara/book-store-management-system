@@ -11,6 +11,7 @@ export default function cartReducer (state = initState, action) {
     
     case cart.GET_CART_ERROR:
     case cart.ADD_TO_CART_ERROR:
+    case cart.REMOVE_FROM_CART_ERROR:
       return {
         ...state,
         error: action.payload,
@@ -19,6 +20,7 @@ export default function cartReducer (state = initState, action) {
     
     case cart.GET_CART_PENDING:
     case cart.ADD_TO_CART_PENDING:
+    case cart.REMOVE_FROM_CART_PENDING:
       return {
         ...state,
         loading: true,
@@ -26,6 +28,7 @@ export default function cartReducer (state = initState, action) {
     
     case cart.GET_CART_SUCCESS:
     case cart.ADD_TO_CART_SUCCESS:
+    case cart.REMOVE_FROM_CART_SUCCESS:
       return {
         ...state,
         data: action.payload,

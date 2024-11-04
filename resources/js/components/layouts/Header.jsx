@@ -71,7 +71,7 @@ export default function Header(props) {
           <Link
             className="nav-link active" 
             aria-current="page" 
-            to="/"
+            to="/cart"
           >
             Cart ({cartCount})
           </Link>
