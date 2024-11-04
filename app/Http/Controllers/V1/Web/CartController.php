@@ -60,6 +60,9 @@ class CartController extends Controller
                         $field => "The ".$field." field is missing.",
                     ], Response::HTTP_BAD_REQUEST);
                 }
+                if (1 > $cart["quantity"]) {
+                    continue;
+                }
                 $newCart[$key]["book_id"] = $cart["bookId"];
                 $newCart[$key]["user_id"] = $user->id;
                 $newCart[$key]["quantity"] = $cart["quantity"];
