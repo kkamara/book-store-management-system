@@ -142,6 +142,7 @@ export default function CartComponent() {
             <div className="cart-checkout-icons-container">
               <a
                 className="btn btn-success"
+                href="#"
               >
                 Checkout
               </a>
