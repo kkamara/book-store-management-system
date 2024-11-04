@@ -7,6 +7,7 @@ import { Helmet, } from "react-helmet"
 import { getBook, } from '../../../redux/actions/bookActions'
 import { getReviews, } from '../../../redux/actions/reviewsActions'
 import { authorize, } from '../../../redux/actions/authActions'
+import { addToCart, } from '../../../redux/actions/cartActions'
 
 import "./BookComponent.scss"
 
@@ -59,7 +60,7 @@ export default function BookComponent() {
     ) {
       alert("Please login or register to add to cart.")
     } else {
-      // Add to user cart
+      dispatch(addToCart(state.book.data.data.id))
     }
   }
 
