@@ -49,6 +49,14 @@ Route::prefix('web')
             '/cart/update',
             [CartController::class, 'update'],
         )->middleware("auth:sanctum");
+        Route::post(
+            '/cart',
+            [CartController::class, 'addToCart'],
+        )->middleware("auth:sanctum");
+        Route::post(
+            '/cart/remove',
+            [CartController::class, 'removeFromCart'],
+        )->middleware("auth:sanctum");
         Route::get(
             '/books/search',
             [BookController::class, 'search'],

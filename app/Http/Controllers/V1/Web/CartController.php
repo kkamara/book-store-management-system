@@ -76,4 +76,72 @@ class CartController extends Controller
         $cart = $user->carts()->get();
         return new CartCollection($cart);
     }
+
+    public function addToCart(Request $request) {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                "cart" => ["required", "array",],
+                "cart.bookId" => ["required", "numeric", "exists:books,id",],
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), Response::HTTP_BAD_REQUEST);
+        }
+        $user = auth()->user();
+        $newCart = [];
+        if (null !== $request->input("cart")) {
+            $newCart["book_id"] = $request->input("cart")["bookId"];
+            $newCart["user_id"] = $user->id;
+        }
+        $user->carts()->delete();
+        $quantityAdded = false;
+        foreach($user->carts()->get() as $key => $cart) {
+            if ($cart->book_id === $newCart["book_id"]) {
+                $cart->quantity += 1;
+                $cart->save();
+                $quantityAdded = true;
+                break;
+            }
+        }
+        if (isset($newCart) && false === $quantityAdded) {
+            $newCart["quantity"] = 1;
+            $user->carts()->insert($newCart);
+        }
+        $cart = $user->carts()->get();
+        return new CartCollection($cart);
+    }
+
+    public function removeFromCart(Request $request) {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                "cart" => ["required", "array",],
+                "cart.bookId" => ["required", "numeric", "exists:books,id",],
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), Response::HTTP_BAD_REQUEST);
+        }
+        $user = auth()->user();
+        $newCart = [];
+        if (null !== $request->input("cart")) {
+            $newCart["book_id"] = $request->input("cart")["bookId"];
+            $newCart["user_id"] = $user->id;
+        }
+        $user->carts()->delete();
+        foreach($user->carts()->get() as $key => $cart) {
+            if ($cart->book_id === $newCart["book_id"]) {
+                if (($cart->quantity - 1) < 1) {
+                    $cart->delete();
+                    break;
+                }
+                $cart->quantity -= 1;
+                $cart->save();
+                break;
+            }
+        }
+        $cart = $user->carts()->get();
+        return new CartCollection($cart);
+    }
 }

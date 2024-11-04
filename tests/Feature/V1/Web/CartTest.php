@@ -162,4 +162,70 @@ class CartTest extends TestCase
             $json->has("data")
         );
     }
+
+    /**
+     * A basic feature test example for Cart addToCart route.
+     */
+    public function testCartAddToCart(): void
+    {
+        $this->seed();
+        $email = "jane@doe.com";
+        $user = User::where(compact("email"))->firstOrFail();
+        Sanctum::actingAs(
+            $user,
+        );
+        $cart = Cart::factory()
+            ->create(["user_id" => $user->id]);
+        $book = Book::inRandomOrder()->firstOrFail();
+        $response = $this->postJson(
+            "/api/web/cart",
+            [
+                "cart" => [
+                    "bookId" => $book->id,
+                ],
+            ],
+        );
+        
+        $response->assertJson(fn (AssertableJson $json) =>
+            $json->has("data")
+        )
+            ->assertJsonFragment([
+                "name" => $book->name,
+                "quantity" => 1,
+            ]);
+    }
+
+    /**
+     * A basic feature test example for Cart removeFromCart route.
+     */
+    public function testCartRemoveFromCart(): void
+    {
+        $this->seed();
+        $email = "jane@doe.com";
+        $user = User::where(compact("email"))->firstOrFail();
+        Sanctum::actingAs(
+            $user,
+        );
+        $book = Book::inRandomOrder()->firstOrFail();
+        $cart = Cart::factory()
+            ->create([
+                "user_id" => $user->id,
+                "book_id" => $book->id,
+            ]);
+        $response = $this->postJson(
+            "/api/web/cart/remove",
+            [
+                "cart" => [
+                    "bookId" => $book->id,
+                ],
+            ],
+        );
+        
+        $response->assertJson(fn (AssertableJson $json) =>
+            $json->has("data")
+        )
+            ->assertJsonMissing([
+                "name" => $book->name,
+            ]);
+    }
 }
