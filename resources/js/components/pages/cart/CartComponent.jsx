@@ -123,6 +123,9 @@ export default function CartComponent() {
         <Helmet>
             <title>Cart | {import.meta.env.VITE_APP_NAME}</title>
         </Helmet>
+        <div className="header-container">
+          <h1>Cart</h1>
+        </div>
         <div className="row">
           <div className="col-md-9">
             {renderList()}
