@@ -174,9 +174,14 @@ class CartTest extends TestCase
         Sanctum::actingAs(
             $user,
         );
-        $cart = Cart::factory()
-            ->create(["user_id" => $user->id]);
         $book = Book::inRandomOrder()->firstOrFail();
+        $cart = Cart::factory()
+            ->create([
+                "user_id" => $user->id,
+                "book_id" => Book::where("id", "!=", $book->id)
+                    ->firstOrFail()
+                    ->id,
+            ]);
         $response = $this->postJson(
             "/api/web/cart",
             [
