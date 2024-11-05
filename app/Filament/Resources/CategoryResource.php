@@ -6,9 +6,11 @@ use App\Filament\Resources\CategoryResource\Pages;
 use App\Filament\Resources\CategoryResource\RelationManagers;
 use App\Models\V1\Category;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextInputColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -23,7 +25,7 @@ class CategoryResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make("name"),
             ]);
     }
 
@@ -31,7 +33,7 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextInputColumn::make("name"),
             ])
             ->filters([
                 //
