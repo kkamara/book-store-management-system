@@ -8,6 +8,7 @@ use App\Filament\Resources\ReviewResource\RelationManagers;
 use App\Models\V1\Review;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -33,6 +34,9 @@ class ReviewResource extends Resource
                     ->relationship("user", "name")
                     ->preload()
                     ->searchable(),
+                Textarea::make("text")
+                    ->rows(5)
+                    ->readOnly(),
                 Select::make("approved")
                     ->options(ReviewApproved::class)
                     ->selectablePlaceholder(false),
@@ -45,6 +49,7 @@ class ReviewResource extends Resource
             ->columns([
                 TextInputColumn::make("rating"),
                 TextInputColumn::make("user.name"),
+                TextInputColumn::make("text"),
                 SelectColumn::make("approved")
                     ->options(ReviewApproved::class)
                     ->selectablePlaceholder(false),
