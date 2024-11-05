@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Jane Doe',
             'email' => 'jane@doe.com',
+            'admin' => true,
         ]);
         Book::factory()->count(30)->create();
         Review::factory()->count(1000)->create();
