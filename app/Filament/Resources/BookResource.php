@@ -6,9 +6,11 @@ use App\Filament\Resources\BookResource\Pages;
 use App\Filament\Resources\BookResource\RelationManagers;
 use App\Models\V1\Book;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextInputColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -31,7 +33,9 @@ class BookResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextInputColumn::make("slug")->searchable(),
+                TextInputColumn::make("name")->searchable(),
+                TextInputColumn::make("cost")->searchable(),
             ])
             ->filters([
                 //
