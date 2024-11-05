@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Enums\V1\OrderStatus;
+use App\Filament\Resources\OrderBookResource\RelationManagers\OrderBooksRelationManager;
 use App\Filament\Resources\OrderResource\Pages;
 use App\Filament\Resources\OrderResource\RelationManagers;
 use App\Models\V1\Order;
@@ -67,7 +68,7 @@ class OrderResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            OrderBooksRelationManager::class,
         ];
     }
 
