@@ -25,7 +25,6 @@
         "reviews",
         "messages",
         "payments",
-        "stripe",
         "categories",
         "filament",
         "laravel"
