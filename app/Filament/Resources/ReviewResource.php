@@ -2,13 +2,18 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\V1\ReviewApproved;
 use App\Filament\Resources\ReviewResource\Pages;
 use App\Filament\Resources\ReviewResource\RelationManagers;
 use App\Models\V1\Review;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\SelectColumn;
+use Filament\Tables\Columns\TextInputColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -23,7 +28,14 @@ class ReviewResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make("rating"),
+                Select::make("user")
+                    ->relationship("user", "name")
+                    ->preload()
+                    ->searchable(),
+                Select::make("approved")
+                    ->options(ReviewApproved::class)
+                    ->selectablePlaceholder(false),
             ]);
     }
 
@@ -31,7 +43,11 @@ class ReviewResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextInputColumn::make("rating"),
+                TextInputColumn::make("user.name"),
+                SelectColumn::make("approved")
+                    ->options(ReviewApproved::class)
+                    ->selectablePlaceholder(false),
             ])
             ->filters([
                 //
