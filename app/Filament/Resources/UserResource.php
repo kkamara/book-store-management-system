@@ -6,9 +6,11 @@ use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\V1\User;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextInputColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -23,7 +25,8 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make("name"),
+                TextInput::make("email"),
             ]);
     }
 
@@ -31,7 +34,10 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextInputColumn::make("name")
+                    ->searchable(),
+                TextInputColumn::make("email")
+                    ->searchable(),
             ])
             ->filters([
                 //
