@@ -37,9 +37,9 @@
 
 [Get Postman HTTP client](https://www.postman.com/).
 
-[Postman API Collection for Book Store Management System](https://github.com/kkamara/book-store-management-system/blob/main/book-store-management-system.postman_collection.json).
+[Postman API Collection for Book Store Management System](https://github.com/kkamara/book-store-management-system/blob/main/database/book-store-management-system.postman_collection.json).
 
-[Postman API Environment for Book Store Management System](https://github.com/kkamara/book-store-management-system/blob/main/book-store-management-system.postman_environment.json).
+[Postman API Environment for Book Store Management System](https://github.com/kkamara/book-store-management-system/blob/main/database/book-store-management-system.postman_environment.json).
 
 ## Installation
 
