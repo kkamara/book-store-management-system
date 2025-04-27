@@ -35,9 +35,11 @@
 <a name="postman"></a>
 ## Using Postman?
 
-[Postman client](https://www.postman.com/).
+[Get Postman HTTP client](https://www.postman.com/).
 
-[Published Postman API Collection](https://documenter.getpostman.com/view/17125932/2sAXxTcAoD).
+[Postman API Collection for Wagers Service](https://github.com/kkamara/book-store-management-system/blob/main/book-store-management-system.postman_collection.json).
+
+[Postman API Environment for Wagers Service](https://github.com/kkamara/book-store-management-system/blob/main/book-store-management-system.postman_environment.json).
 
 ## Installation
 
