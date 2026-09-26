@@ -16,6 +16,8 @@
 
 (14-Oct-2024) www.1000projects.org challenge. Made with Laravel 11, ReactJS 18 and Filament. This project has admin to insert books or a list of books, cart, orders, categories, and reviews. With tests.
 
+V2 is at https://github.com/kkamara/book-store-management-system-2 .
+
 * [Using Postman?](#postman)
 
 * [Installation](#installation)
@@ -82,15 +84,13 @@ POST       api/user/register ................... V1\API\UserController@register
 ...
 ```
 
-View the api collection [here](https://documenter.getpostman.com/view/17125932/TzzAKvVe).
-
 ## Unit Tests
 
 ```bash
 php artisan test --filter=V1
 ```
 
-View the unit test code [here](https://raw.githubusercontent.com/kkamara/php-reactjs-boilerplate/main/tests/Unit/Api/UsersTest.php).
+View the unit test code [here](./tests/Feature/V1).
 
 ## Misc.
 
